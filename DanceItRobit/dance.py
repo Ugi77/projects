@@ -213,14 +213,6 @@ class Motif(object):
                  # articulation gap
                 sleep(0.05)
 
-    # # Method: __str__
-    # # Description: defines how to cast the objects of class Motif into a string  
-    # # Parameters: none
-    # # Precondition: none
-    # # Postcondition: no change
-    # # Returns: a string    
-    # def __str__(self):
-    #     return self.motifList
     
 motif1 = Motif()
 motif1.buildMotif([9, 7, 9, 4, 0, 4, -3], [0.5, 0.5, 0.5, 0.5, 0.25, 1, 1], 3)
@@ -236,7 +228,7 @@ motif5 = Motif()
 motif5.buildMotif([-3, -3], [0.75, 1], 1)
 
 #motif4.playMotif()
-print(motif4.getNames())
+# print(motif4.getNames())
     
 
 # Class: Dance
@@ -295,7 +287,7 @@ class Dance(object):
             
             elif self.danceMove == 'twerk':
                 counter = 0
-                while counter <= 1.2:
+                while counter < 3:
                     motors.enable(True)
                     motors.run(LEFT, 70)
                     motors.run(RIGHT, 70)
@@ -303,7 +295,14 @@ class Dance(object):
                     motors.run(LEFT, -70)
                     motors.run(RIGHT, -70)
                     sleep(0.15)
-                    counter += 0.3
+                    
+                    motors.run(LEFT, 80)
+                    motors.run(RIGHT, -80)
+                    sleep(0.2)
+                    motors.run(LEFT, -80)
+                    motors.run(RIGHT, 80)
+                    sleep(0.2)
+                    counter += 1
                     motors.enable(False)
                 leds.ls(0b11111)
                 self.motif.playMotif()
