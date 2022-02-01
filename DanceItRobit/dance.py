@@ -137,7 +137,7 @@ def getNameFromPos(keyboard, pos):
     for note in keyboard:
         if note.getPos() == pos:
             return note.getName()
-#print(getNameFromPos(keyboard, 9))
+# print(getNameFromPos(keyboard, 9))
 
 
 
@@ -212,6 +212,15 @@ class Motif(object):
                 spkr.off()
                  # articulation gap
                 sleep(0.05)
+
+    # # Method: __str__
+    # # Description: defines how to cast the objects of class Motif into a string  
+    # # Parameters: none
+    # # Precondition: none
+    # # Postcondition: no change
+    # # Returns: a string    
+    # def __str__(self):
+    #     return self.motifList
     
 motif1 = Motif()
 motif1.buildMotif([9, 7, 9, 4, 0, 4, -3], [0.5, 0.5, 0.5, 0.5, 0.25, 1, 1], 3)
@@ -227,6 +236,8 @@ motif5 = Motif()
 motif5.buildMotif([-3, -3], [0.75, 1], 1)
 
 #motif4.playMotif()
+print(motif4.getNames())
+    
 
 # Class: Dance
 # Description: represents a Dance object with musical motifs and dance moves
@@ -328,5 +339,8 @@ def composer():
     dance4.danceIt()
     dance5.danceIt()
 
-composer()
+# composer()
 
+
+
+          
