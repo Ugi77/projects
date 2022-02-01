@@ -195,20 +195,20 @@ theme3 = (['A3', 'A3'], [0.75, 1], 1)
 motif1 = buildMotif(theme1[0], theme1[1], theme1[2])
 motif2 = buildMotif(theme2[0], theme2[1], theme2[2])
 motif3 = buildMotif(theme3[0], theme3[1], theme3[2])
-motif4 = buildTransposedMotif(theme1[0], theme1[1], theme1[2], 7)
-motif5 = buildTransposedMotif(theme2[0], theme2[1], theme2[2], 7)
+transpMotif1 = buildTransposedMotif(theme1[0], theme1[1], theme1[2], 7)
+transpMotif2 = buildTransposedMotif(theme2[0], theme2[1], theme2[2], 7)
 
-# Function: danceMove
+# Function: dance
 # Description: perform sequence of dance moves
 # Parameters: 
-#   danceSelection: a string, chosen from 'catwalk', 'twirl', or 'twerk'
-#   motif:          a list, of Note objects
-# Preconditions: the function buildMotif has been run
+#   danceMove: a string, chosen from 'catwalk', 'twirl', or 'twerk'
+#   motif:     a list, of Note objects
+# Preconditions: the function buildMotif has been run, robotToggle is set to '1'
 # Postcondition: no change
 # Returns: None       
-def danceMove(danceSelection, motif):
+def dance(danceMove, motif):
     if robotToggle == 1:
-        if danceSelection == 'catwalk':
+        if danceMove == 'catwalk':
             motors.enable(True)
             motors.run(LEFT, 40)
             motors.run(RIGHT, 40)
@@ -221,14 +221,14 @@ def danceMove(danceSelection, motif):
             sleep(0.1)
             motors.enable(False)
                 
-        elif danceSelection == 'twirl':
+        elif danceMove == 'twirl':
             motors.enable(True)
             motors.run(LEFT, 60)
             motors.run(RIGHT, -60)
             playMotif(motif)
             motors.enable(False)
             
-        elif danceSelection == 'twerk':
+        elif danceMove == 'twerk':
             counter = 0
             while counter <= 1.2:
                 motors.enable(True)
@@ -243,56 +243,39 @@ def danceMove(danceSelection, motif):
             leds.ls(0b11111)
             playMotif(motif)
             
-danceMove('catwalk', motif1)
-danceMove('catwalk', motif1)
-danceMove('twirl', motif2)
-danceMove('catwalk', motif4)
-danceMove('catwalk', motif4)
-danceMove('twirl', motif5)
-danceMove('twerk', motif3)
+themes = [motif1, motif2, transpMotif1, transpMotif2, motif3]
 
 # Function: composer
 # Description: perform sequence of coordinated motifs and dance moves
-# Parameters: ##USE *ARGS HERE?##
-#   theme1: a tuple, containing a list of strings (notes), a list of numbers (durations), 
-#       an integer (tempo), and a string (dance, chosen from 'catwalk', 'twirl', or 'twerk')
-#   theme2: same
-#   theme3: same
-# Preconditions: STUB
-# Postcondition: STUB
-# Returns: STUB       
-def composer(theme1, theme2, theme3):
-    motif2 = buildMotif(theme1[0], theme1[1], theme1[2])
-    print(motif2)
-    danceMove('catwalk')
-    danceMove('twirl')
-    
-    motif2 = buildMotif(theme2[0], theme2[1], theme2[2])
-    danceMove('catwalk')
-    
-    motif2 = buildTransposedMotif(theme1[0], theme1[1], theme1[2], 7)
-    danceMove('catwalk')
-    danceMove('twirl')
-    
-    motif2 = buildTransposedMotif(theme2[0], theme2[1], theme2[2], 7)
-    danceMove('catwalk') 
-    
-    motif2 = buildMotif(theme3[0], theme3[1], theme3[2])
-    danceMove('twerk')
+# Parameters: 
+#   themes: a list, of motifs
+# Preconditions: robotToggle is set to '1'
+# Postcondition: no change
+# Returns: None       
+def composer(themes):
+    if robotToggle == 1:
+        dance('catwalk', themes[0])
+        dance('catwalk', themes[0])
+        dance('twirl', themes[1])
+        dance('catwalk', themes[0])
+        dance('catwalk', themes[0])
+                
+        dance('catwalk', themes[2])
+        dance('catwalk', themes[2])
+        dance('twirl', themes[3])
+        dance('catwalk', themes[2])
+        dance('catwalk', themes[2])
+        dance('twirl', themes[3])
+        
+        dance('twerk', themes[4]) 
 
-#composer(theme1, theme2, theme3) 
+#composer(themes) 
 
-
-# # Function: sumDur
-# # Description: sums the duration of a list of Note objects 
-# # Parameters: 
-# #   notesList: a list of Note objects
-# # Preconditions: STUB 
-# # Postcondition: no change
-# # Returns: a float
-# def sumDur(motif):
-#     durs = 0
-#     for note in motif:
-#         durs += note.getDur()
-#     return durs
-# durs = sumDur(motif)          
+# set toggle for sim environment so all calls produce test output in Spyder
+# create additional parameter for Note obj to include index #, of keyboard, for easy abstracted calls
+# make a motif class, could print display of motif (e.g. notes, nums) or play motif
+# Note class could have transpose method (vs function) to build transposed Note obj
+# fix Hz
+# find python library to play pitches (to play in sim mode)
+# separate files into infrastructure & then main program to play stuff
+          
