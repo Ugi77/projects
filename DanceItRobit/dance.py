@@ -5,12 +5,17 @@ Created on Sun Jan  9 09:14:43 2022
 @author: nari2
 """
 
+import random
+
 robotToggle = 0
 if robotToggle == 0:
     import winsound
 elif robotToggle == 1:
     from botcore import *
     from time import sleep
+else:
+    print("Hey, set robotToggle to 0 or 1!")
+    print("    ")
 
 
 # Class: Pitch
@@ -63,18 +68,6 @@ class Pitch(object):
     # Returns: a float        
     def getFreq(self):
         return self.freq
-
-    # # Method: transposePitch
-    # # Description: transpose a Pitch object
-    # # Parameters: 
-    # #   step: an integer (positive or negative)
-    # # Precondition: STUB   
-    # # Postcondition: STUB
-    # # Returns: a Pitch object
-    # def transposePitch(self, step):
-    #     transposOn = (self.getPos() + step) + -36
-    #     # shit now how do i retrieve the Pitch obj with just the position
-    #     return keyboard[transposOn]
     
     # Method: playPitch
     # Description: plays a Pitch object's frequency at 1s duration
@@ -140,7 +133,6 @@ def getNameFromPos(keyboard, pos):
 # print(getNameFromPos(keyboard, 9))
 
 
-
 # Class: Motif
 # Description: represents a collection of Pitch objects, with notes of n duration
 class Motif(object):
@@ -160,13 +152,15 @@ class Motif(object):
     # Description: add Pitch objects to build a motif
     # Parameters: 
     #   notePositions: a list of integers, representing keyboard note positions (e.g. 0 = C4, 12 = C5)
+    #   keyboard:      a list, of Pitch objects
     #   durations:     a list of numbers (floats or ints) representing each note duration in seconds
     #   tempo:         a number (float or int), where 1 = 1s, 2 = 0.5s
     #   step:          an integer (positive or negative), default is 0 unless transposition wished
+
     # Precondition: the function buildKeyboard has been run   
     # Postcondition: Pitch objects and their adjusted durations, transpositions are added
     # Returns: None
-    def buildMotif(self, notePositions, durations, tempo, step = 0):
+    def buildMotif(self, notePositions, keyboard, durations, tempo, step = 0):
         # transpose if step is a parameter in the call
         if step != 0:
             notePositionsCopy = notePositions[:]
@@ -181,7 +175,7 @@ class Motif(object):
                     if note.getPos() == pos:             
                         self.motifList.append([note, tempoDurations[counter]])
                         counter += 1
-        #return self.motifList
+    
     
     # Method: getNames
     # Description: retrieves Pitch object's names from a motif
@@ -213,19 +207,19 @@ class Motif(object):
                  # articulation gap
                 sleep(0.05)
 
-    
+
 motif1 = Motif()
-motif1.buildMotif([9, 7, 9, 4, 0, 4, -3], [0.5, 0.5, 0.5, 0.5, 0.25, 1, 1], 3)
+motif1.buildMotif([9, 7, 9, 4, 0, 4, -3], keyboard, [0.5, 0.5, 0.5, 0.5, 0.25, 1, 1], 3.5)
 motif2 = Motif()
-motif2.buildMotif([21, 19, 21, 16, 12, 16, 9], [0.5, 0.5, 0.5, 0.5, 0.25, 1, 1], 3, 7)
+motif2.buildMotif([21, 19, 21, 16, 12, 16, 9], keyboard, [0.5, 0.5, 0.5, 0.5, 0.25, 1, 1], 3.5, 7)
 motif3 = Motif()
-motif3.buildMotif([9, 11, 12, 11, 12, 12, 9, 11, 9, 11, 11, 7, 9, 7, 9, 9, 11, 12], 
-            [0.5, 0.5, 0.5, 0.25, 0.5, 0.5, 0.25, 0.5, 0.25, 0.5, 0.5, 0.25, 0.5, 0.25, 0.5, 0.5, 0.25, 1], 4)
+motif3.buildMotif([9, 11, 12, 11, 12, 12, 9, 11, 9, 11, 11, 7, 9, 7, 9, 9, 11, 12], keyboard,
+            [0.5, 0.5, 0.5, 0.25, 0.5, 0.5, 0.25, 0.5, 0.25, 0.5, 0.5, 0.25, 0.5, 0.25, 0.5, 0.5, 0.25, 1], 3.5)
 motif4 = Motif()
-motif4.buildMotif([9, 11, 12, 11, 12, 12, 9, 11, 9, 11, 11, 7, 9, 7, 9, 9, 11, 12], 
-            [0.5, 0.5, 0.5, 0.25, 0.5, 0.5, 0.25, 0.5, 0.25, 0.5, 0.5, 0.25, 0.5, 0.25, 0.5, 0.5, 0.25, 1], 4, 7)
+motif4.buildMotif([9, 11, 12, 11, 12, 12, 9, 11, 9, 11, 11, 7, 9, 7, 9, 9, 11, 12], keyboard,
+            [0.5, 0.5, 0.5, 0.25, 0.5, 0.5, 0.25, 0.5, 0.25, 0.5, 0.5, 0.25, 0.5, 0.25, 0.5, 0.5, 0.25, 1], 3.5, 7)
 motif5 = Motif()
-motif5.buildMotif([-3, -3], [0.75, 1], 1)
+motif5.buildMotif([-3, -3], keyboard, [0.75, 1], 1)
 
 #motif4.playMotif()
 # print(motif4.getNames())
@@ -311,35 +305,27 @@ class Dance(object):
 # dance1.danceIt()
 
 # Function: composer
-# Description: performs a sequence of coordinated motifs and dance moves
-# Parameters: none
+# Description: coordinates & performs a sequence of motifs and dance moves
+# Parameters: 
+#   motifs: a list, of Motif objects
+#   motifOrder: a list, of desired Motif object order (by index position) & repetition
 # Preconditions: buildMotif has been called
 # Postcondition: no change
 # Returns: None       
-def composer():
-    dance1 = Dance(motif1, 'catwalk')
-    dance2 = Dance(motif2, 'catwalk')
-    dance3 = Dance(motif3, 'twirl')
-    dance4 = Dance(motif4, 'twirl')
-    dance5 = Dance(motif5, 'twerk')
-
-    dance1.danceIt()
-    dance1.danceIt()
-    dance3.danceIt()    
-    dance1.danceIt()
-    dance1.danceIt()
-    dance3.danceIt()
+def composer(motifs, motifOrder): 
+    danceList = []
     
-    dance2.danceIt()
-    dance2.danceIt()
-    dance4.danceIt()
-    dance2.danceIt()
-    dance2.danceIt()
-    dance4.danceIt()
-    dance5.danceIt()
+    for motif in motifs[0:-1]:
+        danceObj = Dance(motif, random.choice(['catwalk', 'twirl']))
+        danceList.append(danceObj)
+    # make that last move really special                     
+    danceEnd = Dance(motifs[-1], 'twerk')
+    danceList.append(danceEnd)
+    
+    for num in motifOrder: 
+        danceList[num].danceIt()
 
-# composer()
+composer([motif1, motif2, motif3, motif4, motif5], [0, 0, 2, 0, 0, 2, 1, 1, 3, 1, 1, 3, 4])
 
 
 
-          
