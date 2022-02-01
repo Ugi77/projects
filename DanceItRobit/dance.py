@@ -5,11 +5,16 @@ Created on Sun Jan  9 09:14:43 2022
 @author: nari2
 """
 
+robotToggle = 0
+if robotToggle == 1:
+    from botcore import *
+    from time import sleep
+    
 # Function: buildNoteRepo
 # Description: maps note names to frequencies (Hz)
 # Parameters: 
-#   note: a list of strings, representing the note name
-#   freq: an integer, representing pitch (Hz)
+#   noteList: a list of strings, representing the note name
+#   freqList: a float, representing pitch (Hz)
 # Returns: a dictionary
 def buildNoteRepo(note, freq):
     noteRepo = {}
@@ -24,35 +29,32 @@ def buildNoteRepo(note, freq):
 
 noteList = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
 freqList = [16.35, 17.32, 18.35, 19.45, 20.60, 21.83, 23.12, 24.50, 25.96, 27.50, 29.14, 30.87]
-
 noteRepo = (buildNoteRepo(noteList, freqList))
 
-
-robotToggle = 0
-if robotToggle == 1:
-    from botcore import *
-    from time import sleep
 
 # Class: Note
 # Description: represents a Note object with notes of n duration
 class Note(object):
-
     # Method: __init__
     # Description: constructor
     # Parameters:
-    #   name: a list of strings, representing note name
-    #   dur: a float, representing time elapse of pitch
+    #   name:  a list of strings, representing note name
+    #   freq:  a float, representing pitch (Hz)
+    #   dur:   a float, representing time elapse of pitch
+    #   tempo: a number (float or int)
     # Precondition: the function buildNoteRepo has been run
     # Postcondition: the data attributes are initialized
     # Returns: a newly created object of type Note
-    def __init__(self, name, freq, dur):
+    def __init__(self, name, freq, dur, tempo):
         # Data attributes: 
         #   name: a string, representing note name
         #   freq:  an float, representing pitch
-        #   dur:  a float, representing time elapse of pitch     
+        #   dur:  a float, representing time elapse of pitch
+        #   tempo: a number (float or int)
         self.name = name
         self.freq = freq
-        self.dur  = dur  
+        self.dur  = dur 
+        self.tempo = tempo
     
     # Method: getName
     # Description: retrieves a Note object's name (note and octave position)
@@ -93,8 +95,6 @@ class Note(object):
             spkr.pitch(self.getFreq())
             sleep(self.dur)
             spkr.off()
-              # articulation gap
-            sleep(0.05)
 
     # Method: __str__
     # Description: Defines how to cast the objects of class Note into a string  
@@ -108,152 +108,191 @@ class Note(object):
 ## END OF CLASS NOTE ##
 
 
-# Function: buildTune
-# Description: builds a list of Note objects
-# Parameters: 
-#   motif: a string, of note names
-# Preconditions: the function buildNoteRepo has been run 
-# Postcondition: the Note class is instanciated
-# Returns: a list      
-def buildTune(notes):
-    notesList = []
-
-    for note in notes:
-        try:
-            noteObject = Note(note, noteRepo[note], 1.0)            
-            notesList.append(noteObject)
-        except KeyError:
-            raise ValueError("Hey that's not a note!!")
-
-    return notesList
-      
-# notes = ['A5', 'G5', 'A5', 'E5', 'C5', 'E5', 'A4']
-# notesList = buildTune(notes)
-# print(notesList[0].getFreq())
-    
-# Function: playMotif
-# Description: plays the list of Note objects' frequencies, with Note object duration
-# Parameters: 
-#   notesList: a list of Note objects
-# Preconditions: none 
-# Postcondition: no change
-# Returns: STUB emitted Hz of dur duration       
-def playMotif(notesList):
-    if robotToggle == 1:
-        for note in notesList:
-            spkr.pitch(round(note.getFreq()))
-            sleep(note.dur)
-            spkr.off()
-              # articulation gap
-            sleep(0.05)
-#playMotif(notesList)
-
-
-
-# create Rhythm class, that inherits from Note? includes tempo, dur
-# dur will be a list of durs for each note
-# tempo will be 1 num that alters all durs appropriately
-
-# Then Dance class that inherits from Rhythm, instanciates dance moves
-# Then Song function?
-
-
-# Class: Rhythm
-# Description: represents a collection of Note objects with notes of n duration
-class Rhythm(Note):
-
-    # Method: __init__
-    # Description: constructor
-    # Parameters:
-    #   name:  a list of strings, representing note name
-    #   dur:   a float, representing time elapse of pitch
-    #   tempo: an integer, representing tempo
-    # Precondition: STUB
-    # Postcondition: the data attributes are initialized
-    # Returns: a newly created object of type Rhythm
-    def __init__(self, name, freq, dur, tempo):
-        Note.__init__(self, name, freq, dur)
-        # Data attributes: 
-        #   name:  a string, representing note name
-        #   freq:  an float, representing pitch
-        #   dur:   a float, representing time elapse of pitch
-        #   tempo: an integer, representing tempo      
-        self.name = name
-        self.freq = freq
-        self.dur  = dur
-        self.tempo = tempo
-
-    # Method: getTempo
-    # Description: retrieves a Note object's tempo 
-    # Parameters: none
-    # Preconditions: none 
-    # Postcondition: no change
-    # Returns: a float        
-    def getTempo(self):
-        return self.tempo
-    
-    # Method: setDur
-    # Description: resets a list of Note object's durations based on tempo
-    #   (1 = default slow, 2 to 5 = increasingly faster)
-    # Parameters: 
-    #   tempo, an integer
-    # Preconditions: STUB 
-    # Postcondition: STUB
-    # Returns: None      
-    def setDur(self):
-        self.dur = self.dur / self.getTempo()
-
-
-## END OF CLASS RHYTHM##
-
 # Function: buildMotif
-# Description: builds a list of Note objects
+# Description: builds a list of Note objects with note duration and tempo
 # Parameters: 
-#   motif: a string, of note names
+#   notes: a string, of note names
+#   durs:  a list, of numbers (floats or ints)
+#   tempo: a number (float or int) 
 # Preconditions: the function buildNoteRepo has been run 
-# Postcondition: STUB
-# Returns: a list, of Rhythm objects       
+# Postcondition: Note objects are created
+# Returns: a list, of Note objects       
 def buildMotif(notes, durs, tempo):
     motif = []
-    counter = 0
-    
+    counter = 0    
     for note in notes:
         try:
-            noteObject = Rhythm(note, noteRepo[note], durs[counter], tempo)            
+            noteObject = Note(note, noteRepo[note], (durs[counter]/tempo), tempo)            
             motif.append(noteObject)
             counter += 1
         except KeyError:
             raise ValueError("Hey that's not a note!!")
-
     return motif
       
 notes = ['A5', 'G5', 'A5', 'E5', 'C5', 'E5', 'A4']
-# list durs based upon approx to the first note!
 durs  = [1, 1, 1, 1, 0.5, 1.5, 1.5]
-tempo = 3
-motif = buildMotif(notes, durs, tempo)
+tempo = 2
+step = 5
+motif = buildMotif(notes, durs, tempo)   
 
-# Function: setTempo
-# Description: applies desired tempo to list of Note objects
+# Function: buildTransposedMotif
+# Description: builds a list of Note objects with note duration, tempo, & transposition
 # Parameters: 
-#   tempo: an number (float or int) 
+#   motif: a string, of note names
+#   durs:  a list, of numbers (floats or ints)
+#   tempo: a number (float or int)
+#   step:  an integer (positive or negative) 
+# Preconditions: the function buildNoteRepo has been run 
+# Postcondition: Note objects are created
+# Returns: a list, of Note objects       
+def buildTransposedMotif(notes, durs, tempo, step):
+    transponsedNotes = []
+    for note in notes:
+        # take first part of notes string (e.g. 'A') & obtain index position
+        position = noteList.index(note[0])
+        # add or subtract steps
+        transposition = position + step
+        newPosition = transposition % 12
+        # get relevant index, add octave back in (-1 if crosses over C, +1 if crosses over B)  
+        # add to transponsedNotes list       
+        if transposition // 12 == 0:
+            transponsedNotes.append(noteList[newPosition] + (note[1]))
+        else:
+            transposOn = int(note[1]) + (transposition // 12)
+            transponsedNotes.append(noteList[newPosition] + str(transposOn))            
+    motif = buildMotif(transponsedNotes, durs, tempo)
+    return motif
+      
+# motif = buildTransposedMotif(notes, durs, tempo, step)
+# print(motif[0].getName())
+# print(motif[0].getFreq())
+# print(motif[0].getDur())
+   
+
+# Function: playMotif
+# Description: plays the list of Note objects' frequencies
+# Parameters: 
+#   motif: a list of Note objects
+# Preconditions: the robotToggle must be set to '1' 
+# Postcondition: no change
+# Returns: emitted Hz of dur duration       
+def playMotif(motif):
+    if robotToggle == 1:
+        for note in motif:
+            spkr.pitch(round(note.getFreq()))
+            sleep(note.dur)
+            spkr.off()
+             # articulation gap
+            sleep(0.05)
+#playMotif(motif)
+
+
+theme1 = (['A5', 'G5', 'A5', 'E5', 'C5', 'E5', 'A4'], [0.75, 1, 0.75, 1, 0.5, 1, 1], 5)
+theme2 = (['A5', 'B5', 'C6', 'A5', 'C6', 'C6', 'A5', 'B5', 'A5', 'B5', 'B5', 'G5', 'A5', 'G5', 'A5', 'A5', 'B5', 'C6'], 
+            [0.5, 0.5, 0.5, 0.25, 0.5, 0.5, 0.25, 0.5, 0.25, 0.5, 0.5, 0.25, 0.5, 0.25, 0.5, 0.5, 0.25, 1], 3)
+theme3 = (['A3', 'A3'], [0.75, 1], 1)    
+
+motif1 = buildMotif(theme1[0], theme1[1], theme1[2])
+motif2 = buildMotif(theme2[0], theme2[1], theme2[2])
+motif3 = buildMotif(theme3[0], theme3[1], theme3[2])
+motif4 = buildTransposedMotif(theme1[0], theme1[1], theme1[2], 7)
+motif5 = buildTransposedMotif(theme2[0], theme2[1], theme2[2], 7)
+
+# Function: danceMove
+# Description: perform sequence of dance moves
+# Parameters: 
+#   danceSelection: a string, chosen from 'catwalk', 'twirl', or 'twerk'
+#   motif:          a list, of Note objects
+# Preconditions: the function buildMotif has been run
+# Postcondition: no change
+# Returns: None       
+def danceMove(danceSelection, motif):
+    if robotToggle == 1:
+        if danceSelection == 'catwalk':
+            motors.enable(True)
+            motors.run(LEFT, 40)
+            motors.run(RIGHT, 40)
+            playMotif(motif)
+            motors.run(LEFT, 60)
+            motors.run(RIGHT, -60)
+            sleep(0.1)
+            motors.run(LEFT, -60)
+            motors.run(RIGHT, 60)
+            sleep(0.1)
+            motors.enable(False)
+                
+        elif danceSelection == 'twirl':
+            motors.enable(True)
+            motors.run(LEFT, 60)
+            motors.run(RIGHT, -60)
+            playMotif(motif)
+            motors.enable(False)
+            
+        elif danceSelection == 'twerk':
+            counter = 0
+            while counter <= 1.2:
+                motors.enable(True)
+                motors.run(LEFT, 70)
+                motors.run(RIGHT, 70)
+                sleep(0.15)
+                motors.run(LEFT, -70)
+                motors.run(RIGHT, -70)
+                sleep(0.15)
+                counter += 0.3
+                motors.enable(False)
+            leds.ls(0b11111)
+            playMotif(motif)
+            
+danceMove('catwalk', motif1)
+danceMove('catwalk', motif1)
+danceMove('twirl', motif2)
+danceMove('catwalk', motif4)
+danceMove('catwalk', motif4)
+danceMove('twirl', motif5)
+danceMove('twerk', motif3)
+
+# Function: composer
+# Description: perform sequence of coordinated motifs and dance moves
+# Parameters: ##USE *ARGS HERE?##
+#   theme1: a tuple, containing a list of strings (notes), a list of numbers (durations), 
+#       an integer (tempo), and a string (dance, chosen from 'catwalk', 'twirl', or 'twerk')
+#   theme2: same
+#   theme3: same
 # Preconditions: STUB
 # Postcondition: STUB
-# Returns:       
-def setTempo(tempo):
-    motifTempo = []
-    if tempo != 1:
-        for item in motif:
-            item.setDur()
-            motifTempo.append(item)
-    return motifTempo
-            
-motifTempo = setTempo(tempo)  
-print(motif[1].getDur())          
-            
-            
-            
-            
-            
-            
-            
+# Returns: STUB       
+def composer(theme1, theme2, theme3):
+    motif2 = buildMotif(theme1[0], theme1[1], theme1[2])
+    print(motif2)
+    danceMove('catwalk')
+    danceMove('twirl')
+    
+    motif2 = buildMotif(theme2[0], theme2[1], theme2[2])
+    danceMove('catwalk')
+    
+    motif2 = buildTransposedMotif(theme1[0], theme1[1], theme1[2], 7)
+    danceMove('catwalk')
+    danceMove('twirl')
+    
+    motif2 = buildTransposedMotif(theme2[0], theme2[1], theme2[2], 7)
+    danceMove('catwalk') 
+    
+    motif2 = buildMotif(theme3[0], theme3[1], theme3[2])
+    danceMove('twerk')
+
+#composer(theme1, theme2, theme3) 
+
+
+# # Function: sumDur
+# # Description: sums the duration of a list of Note objects 
+# # Parameters: 
+# #   notesList: a list of Note objects
+# # Preconditions: STUB 
+# # Postcondition: no change
+# # Returns: a float
+# def sumDur(motif):
+#     durs = 0
+#     for note in motif:
+#         durs += note.getDur()
+#     return durs
+# durs = sumDur(motif)          
