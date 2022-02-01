@@ -5,13 +5,6 @@ Created on Sun Jan  9 09:14:43 2022
 @author: nari2
 """
 
-#NEXT: try manually making note as Note obj w/name as key, add to dict, then add freq, duration as values?
-#Use grades as example
-
-#OR
-# create dict of scales with note names (key) freq (value)
-#THEN when create a motif make as objects and include duration, tempo, time sig
-
 robotToggle = 0
 
 if robotToggle == 1:
@@ -43,13 +36,13 @@ class Note(object):
         self.dur = d
         #self.t = tempo
 
-    # Method: getName
+    # Method: getNote
     # Description: retrieves a Note object's name (note and octave position)
     # Parameters: none
     # Preconditions: none 
     # Postcondition: no change
     # Returns: a string        
-    def getName(self):
+    def getNote(self):
         return self.name
 
     # Method: getFreq
@@ -110,33 +103,65 @@ class Note(object):
     def __str__(self):
         return self.name + ': <' + str(self.freq) + '>'
 
-
-# Function: buildNotes 
-# Description: takes in 2 lists of the same length, and generates a list of Note objects
+# Function: buildScaleNames
+# Description: generates a list of note names
 # Parameters: 
 #   note: a list of strings, representing the note name
-#   freq: an integer, representing pitch (Hz)
-#   dur: a float, representing note duration (default of 1.0 second)
-# Returns: a list of Note objects
-def buildScale(note, freq, dur):
-    notes = []
-    octave = 1
-    freq_increment = 2
-    while octave <= 6:
-        for i in range(len(note_list)):
-            # create a Note object with a list element from note, freq at iterated index position
-            noteObject = Note(note_list[i] + str(octave), (freq_list[i] * freq_increment), dur)
-            # add each Note object to the notes list
-            notes.append(noteObject)
-        octave += 1
-        freq_increment *= 2
-    return notes  
+# Returns: a list of strings
+def buildScaleNames(protoScale):
+    scaleNames = []
+    counter = 1
+    while counter <= 6:
+        for element in protoScale:
+           scaleNames.append(element + str(counter))
+        counter += 1
+    return scaleNames
+    
 
-note_list = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
+# # Function: buildScale 
+# # Description: takes in 2 lists of the same length, and generates a list of Note objects
+# # Parameters: 
+# #   note: a list of strings, representing the note name
+# #   freq: an integer, representing pitch (Hz)
+# #   dur: a float, representing note duration (default of 1.0 second)
+# # Returns: a list of Note objects
+# def buildScale(note, freq, dur):
+#     counter = 0
+#     notes = []
+#     octave = 1
+#     freq_increment = 2
+#     while octave <= 6:
+#         for i in range(len(protoScale)):
+#             # create a Note object with a list element from note, freq at iterated index position
+#             scaleNames[counter] = Note(protoScale[i] + str(octave), (freq_list[i] * freq_increment), dur)
+#             print(scaleNames[counter])
+#             # add each Note object to the notes list
+#             # notes.append(scaleNames[counter])
+#         octave += 1
+#         freq_increment *= 2
+#         counter += 1
+#     return notes  
+# buildScale(protoScale, freq_list, dur)
+
+protoScale = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
+scaleNames = buildScaleNames(protoScale)
+
 freq_list = [16.35, 17.32, 18.35, 19.45, 20.60, 21.83, 23.12, 24.50, 25.96, 27.50, 29.14, 30.87]
 dur = 1.0
-
-notes = (buildScale(note_list, freq_list, dur))
+counter = 0
+notes = []
+octave = 1
+freq_increment = 2
+for i in range(len(protoScale)):
+    # create a Note object with a list element from note, freq at iterated index position
+    scaleNames[counter] = Note(protoScale[i] + str(octave), (freq_list[i] * freq_increment), dur)
+    print(scaleNames[counter])
+    # add each Note object to the notes list
+    # notes.append(scaleNames[counter])
+octave += 1
+freq_increment *= 2
+counter += 1
+print(scaleNames[counter].getFreq()) 
 
 # Function: playScale
 # Description: plays the list of Note objects' frequencies, with Note object duration
@@ -170,14 +195,13 @@ def playScale(notes):
 #     #if robotToggle == 1:
 #     while counter < len(motif):
 #         for note in notes:
-#             if note.getName() == motif[counter]:
+#             if note.getNote() == motif[counter]:
 #                 motif_obj.append(note)
 #             else:
 #                 continue
 #         counter += 1
 # motif = ['C4', 'G5']
 # print(buildMotif(motif))
-
 
 # Function: playMotif
 # Description: plays a list of Note objects
@@ -195,7 +219,7 @@ def playScale(notes):
         
 
 # for note in notes:
-#     print(note.getName())
+#     print(note.getNote())
 #     print(note.getFreq())
 
 # noteObj = Note('F', 349, 1.0)
