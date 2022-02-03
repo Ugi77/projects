@@ -69,6 +69,16 @@ class Pitch(object):
     def getFreq(self):
         return self.freq
     
+    # Method: getPitch
+    # Description: retrieves a Pitch object from the keyboard
+    # Parameters: 
+    #   position: 
+    # Preconditions: buildKeyboard has been called 
+    # Postcondition: no change
+    # Returns: a float        
+    def getPitch(self):
+        return self.freq
+
     # Method: playPitch
     # Description: plays a Pitch object's frequency at 1s duration
     # Parameters: none
@@ -124,13 +134,13 @@ for note in keyboard:
 # Description: retrieves a Pitch object's name 
 # Parameters: 
 #   keyboard: a list, of Pitch objects
-#   pos: an integer, representing the Pitch object's keyboard position, where 0 = middle C
+#   position: an integer, representing the Pitch object's keyboard position, where 0 = middle C
 # Returns: a string        
-def getNameFromPos(keyboard, pos):
+def getNameFromPos(keyboard, position):
     for note in keyboard:
-        if note.getPos() == pos:
+        if note.getPos() == position:
             return note.getName()
-# print(getNameFromPos(keyboard, 9))
+print(getNameFromPos(keyboard, 9))
 
 
 # Class: Motif
@@ -310,7 +320,7 @@ class Dance(object):
 #   motifs: a list, of Motif objects
 #   motifOrder: a list, of desired Motif object order (by index position) & repetition
 # Preconditions: buildMotif has been called
-# Postcondition: no change
+# Postcondition: Dance objects are created
 # Returns: None       
 def composer(motifs, motifOrder): 
     danceList = []
@@ -325,7 +335,7 @@ def composer(motifs, motifOrder):
     for num in motifOrder: 
         danceList[num].danceIt()
 
-composer([motif1, motif2, motif3, motif4, motif5], [0, 0, 2, 0, 0, 2, 1, 1, 3, 1, 1, 3, 4])
+# composer([motif1, motif2, motif3, motif4, motif5], [0, 0, 2, 0, 0, 2, 1, 1, 3, 1, 1, 3, 4])
 
 
 
