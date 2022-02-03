@@ -68,16 +68,6 @@ class Pitch(object):
     # Returns: a float        
     def getFreq(self):
         return self.freq
-    
-    # Method: getPitch
-    # Description: retrieves a Pitch object from the keyboard
-    # Parameters: 
-    #   position: 
-    # Preconditions: buildKeyboard has been called 
-    # Postcondition: no change
-    # Returns: a float        
-    def getPitch(self):
-        return self.freq
 
     # Method: playPitch
     # Description: plays a Pitch object's frequency at 1s duration
@@ -140,7 +130,19 @@ def getNameFromPos(keyboard, position):
     for note in keyboard:
         if note.getPos() == position:
             return note.getName()
-print(getNameFromPos(keyboard, 9))
+# print(getNameFromPos(keyboard, 9))
+
+# Function: getPitch
+# Description: retrieves a Pitch object from the keyboard
+# Parameters: 
+#   position: an integer, representing the Pitch object's keyboard position, where 0 = middle C
+# Preconditions: buildKeyboard has been called 
+# Postcondition: no change
+# Returns: a Pitch object       
+def getPitch(position):
+    return keyboard[position + Pitch.nextPos]
+    
+print(getPitch(21))
 
 
 # Class: Motif
