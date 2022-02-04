@@ -245,14 +245,14 @@ class Dance(object):
     # Description: constructor
     # Parameters:
     #   motif:     a Motif object
-    #   danceMove: a string, chosen from 'catwalk', 'twirl', or 'twerk'
+    #   danceMove: a string, chosen from 'catwalk', 'twirl', or 'krump'
     # Precondition: buildMotif has been called
     # Postcondition: the data attributes are initialized
     # Returns: a newly created object of type Dance
     def __init__(self, motif, danceMove):
         # Data attributes: 
         #   motif:     a Motif object
-        #   danceMove: a string, chosen from 'catwalk', 'twirl', or 'twerk'
+        #   danceMove: a string, chosen from 'catwalk', 'twirl', or 'krump'
         self.motif     = motif
         self.danceMove = danceMove     
         
@@ -266,8 +266,8 @@ class Dance(object):
                 print('Imagine a robot doing a delightful twirl')
                 self.motif.playMotif()
             
-            elif self.danceMove == 'twerk':
-                print('Imagine a robot...twerking...')
+            elif self.danceMove == 'krump':
+                print('Imagine a robot...krumping...')
                 self.motif.playMotif()
                 
         elif robotToggle == 1:
@@ -291,7 +291,7 @@ class Dance(object):
                 self.motif.playMotif()
                 motors.enable(False)
             
-            elif self.danceMove == 'twerk':
+            elif self.danceMove == 'krump':
                 counter = 0
                 while counter < 3:
                     motors.enable(True)
@@ -331,7 +331,7 @@ def composer(motifs, motifOrder):
         danceObj = Dance(motif, random.choice(['catwalk', 'twirl']))
         danceList.append(danceObj)
     # make that last move really special                     
-    danceEnd = Dance(motifs[-1], 'twerk')
+    danceEnd = Dance(motifs[-1], 'krump')
     danceList.append(danceEnd)
     
     for num in motifOrder: 
