@@ -1,9 +1,8 @@
 # DanceItRobit Python Project
 
-## Purpose: showcase relevant python techniques including...
+## Purpose: showcase python techniques including...
 + OOP
 + Data structures
-+ Functional programming
 + Defensive programming
 + Hardware integration
-### ...and provide one little robit an opportunity to express artistry through music and postmodern contact-improvisation industrial dance 
+### ...to reveal a robot's artistic expression through music and postmodern contact-improvisation industrial dance 
