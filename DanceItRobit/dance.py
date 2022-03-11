@@ -1,14 +1,9 @@
 # -*- coding: utf-8 -*-
-# -*- coding: utf-8 -*-
-"""
-Created on Sun Jan  9 09:14:43 2022
 
-@author: nari2
-"""
 
 import random
 
-robotToggle = 0
+robotToggle = 1
 if robotToggle == 0:
     import winsound
 elif robotToggle == 1:
@@ -225,7 +220,7 @@ motif1 = Motif()
 motif1.buildMotif([9, 7, 9, 4, 0, 4, -3], keyboard, [0.5, 0.5, 0.5, 0.5, 0.25, 0.75, 1], 3)
 
 motif2 = Motif()
-motif2.buildMotif([9, 7, 9, 4, 0, 4, -3], keyboard, [0.5, 0.5, 0.5, 0.5, 0.25, 0.75, 1], 3, 7)
+motif2.buildMotif([16, 14, 16, 11, 7, 11, 4], keyboard, [0.5, 0.5, 0.5, 0.5, 0.25, 0.75, 1], 3)
 
 motif3 = Motif()
 motif3.buildMotif([9, 11, 12, 11, 12, 12, 9, 11, 9, 11, 11, 7, 9, 7, 9, 9, 11, 12], keyboard,
@@ -279,8 +274,8 @@ class Dance(object):
         elif robotToggle == 1:
             if self.danceMove == 'catwalk':
                 motors.enable(True)
-                motors.run(LEFT, 40)
-                motors.run(RIGHT, 40)
+                motors.run(LEFT, 30)
+                motors.run(RIGHT, 30)
                 self.motif.playMotif()
                 motors.run(LEFT, 60)
                 motors.run(RIGHT, -60)
@@ -292,8 +287,8 @@ class Dance(object):
                 
             elif self.danceMove == 'twirl':
                 motors.enable(True)
-                motors.run(LEFT, -60)
-                motors.run(RIGHT, 60)
+                motors.run(LEFT, -45)
+                motors.run(RIGHT, 45)
                 self.motif.playMotif()
                 motors.enable(False)
             
@@ -321,7 +316,7 @@ class Dance(object):
         
 # dance1 = Dance(motif1, 'catwalk')
 # dance1.danceIt()
-dance1 = Dance(myMotif, 'twirl')
+# dance1 = Dance(myMotif, 'twirl')
 # dance1.danceIt()
 # Function: composer
 # Description: coordinates & performs a sequence of motifs and dance moves
