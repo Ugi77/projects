@@ -1,6 +1,6 @@
 ## Welcome to Dima's GitHub Page
 
-This collection houses my Python programming and data analysis projects
+This collection houses my Python programming and data analysis projects.
 
 ### Projects
 
