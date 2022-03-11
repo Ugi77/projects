@@ -183,8 +183,7 @@ class Motif(object):
                     if note.getPos() == pos:             
                         self.motifList.append([note, tempoDurations[counter]])
                         counter += 1
-    
-    
+        
     # Method: getNames
     # Description: retrieves Pitch object's names from a motif
     # Parameters: none
@@ -215,7 +214,6 @@ class Motif(object):
                  # articulation gap
                 sleep(0.05)
 
-
 motif1 = Motif()
 motif1.buildMotif([9, 7, 9, 4, 0, 4, -3], keyboard, [0.5, 0.5, 0.5, 0.5, 0.25, 0.75, 1], 3)
 
@@ -230,13 +228,7 @@ motif4.buildMotif([9, 11, 12, 11, 12, 12, 9, 11, 9, 11, 11, 7, 9, 7, 9, 9, 11, 1
             [0.5, 0.5, 0.5, 0.25, 0.5, 0.5, 0.25, 0.5, 0.25, 0.5, 0.5, 0.25, 0.5, 0.25, 0.5, 0.5, 0.25, 1], 3, 7)
 motif5 = Motif()
 motif5.buildMotif([-3, -3], keyboard, [0.75, 1], 1)
-
-
-myMotif = Motif()
-myMotif.buildMotif([17, 17, 17, 24], keyboard, [0.4, 0.1, 0.1, 0.8], 0.5)
-# myMotif.playMotif()
-# print(motif4.getNames())
-# motif2.playMotif()    
+    
 
 # Class: Dance
 # Description: represents a Dance object with musical motifs and dance moves
@@ -314,10 +306,9 @@ class Dance(object):
                 leds.ls(0b11111)
                 self.motif.playMotif()
         
-# dance1 = Dance(motif1, 'catwalk')
-# dance1.danceIt()
-# dance1 = Dance(myMotif, 'twirl')
-# dance1.danceIt()
+## END OF CLASS DANCE ##
+
+
 # Function: composer
 # Description: coordinates & performs a sequence of motifs and dance moves
 # Parameters: 
@@ -340,6 +331,5 @@ def composer(motifs, motifOrder):
         danceList[num].danceIt()
 
 composer([motif1, motif2, motif3, motif4, motif5], [0, 0, 2, 0, 0, 2, 1, 1, 3, 1, 1, 3, 4])
-# composer([myMotif], [0, 0])
 
 
