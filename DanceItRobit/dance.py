@@ -158,10 +158,10 @@ class Motif(object):
     # Description: add Pitch objects to build a motif
     # Parameters: 
     #   note_positions: a list of integers, representing keyboard note positions (e.g. 0 = C4, 12 = C5)
-    #   keyboard:      a list, of Pitch objects
-    #   durations:     a list of numbers (floats or ints) representing each note duration in seconds
-    #   tempo:         a number (float or int), where 1 = 1s, 2 = 0.5s
-    #   step:          an integer (positive or negative), default is 0 unless transposition wished
+    #   keyboard:       a list, of Pitch objects
+    #   durations:      a list of numbers (floats or ints) representing each note duration in seconds
+    #   tempo:          a number (float or int), where 1 = 1s, 2 = 0.5s
+    #   step:           an integer (positive or negative), default is 0 unless transposition wished
 
     # Precondition: the function build_keyboard has been run   
     # Postcondition: Pitch objects and their adjusted durations, transpositions are added
@@ -246,7 +246,13 @@ class Dance(object):
         #   dance_move: a string, chosen from 'catwalk', 'twirl', or 'krump'
         self.motif      = motif
         self.dance_move = dance_move     
-        
+
+    # Method: dance_it
+    # Description: coordinates a Dance object's motif with sound and dance_move with motion
+    # Parameters: none
+    # Preconditions: the functions build_keyboard and build_motif have been run 
+    # Postcondition: no change
+    # Returns: None           
     def dance_it(self):        
         if robot_toggle == 0:
             if self.dance_move == 'catwalk':
