@@ -1,7 +1,11 @@
 # DanceItRobit
 
 ## Description
-To increase my Python coding skills, I was gifted with a coding robot.  This little robot can be programmed for a variety of actions, including movement and sound.  As soon as I learned its basic capabilities, I wanted to challenge myself to create an advanced program that utilized the robot's full capabilities, my music background, and some rigorous OOP.  The result is this program, which inputs a user's musical motifs, pitch durations, and tempo.  Pitch build, keyboard build, and motif arrangement are abstracted from the user, culminating in a music structure with accompanying dance moves.  The output is a robot's artistic expression through song and postmodern contact-improvisation industrial dance.
+To increase my Python coding skills, I was gifted with a coding robot.  This little robot can be programmed for a variety of actions, including movement and sound.  As soon as I learned its basic capabilities, I wanted to challenge myself to create an advanced program that utilized the robot's full capabilities, my music background, and some rigorous OOP.  The result is this program, which inputs a user's musical motifs, pitch durations, and tempo.  Pitch build, keyboard build, and motif arrangement are abstracted from the user, culminating in a music structure with accompanying dance moves. 
+
+The output is a robot's artistic expression through song and postmodern contact-improvisation industrial dance:  
+
+https://user-images.githubusercontent.com/97997533/157977307-b7b175e4-75cd-48e1-baef-2c861e1e5930.mp4 
  
 ## Tech
 + Python3
