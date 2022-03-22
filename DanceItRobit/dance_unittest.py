@@ -6,33 +6,39 @@ Description: testing components of the Pitch, Motif, and Dance classes
 """
 
 import unittest
+import winsound
 from dance import Pitch
 from dance import Motif
 from dance import Dance
+
 
 class PitchTests(unittest.TestCase):
     """
     Class: PitchTests
     Description: test cases for Class Pitch
     """
-    def set_up(self):
-        self.pitchy = Pitch("testNote", 440.0)
-
+    def setUp(self):
+        self.pitchy = Pitch("toot", 440.0)
+        self.pitchy2 = Pitch("hmm", 256.0)
+        
+    def test_init(self):
+        """pitchy should have a name, frequency, and increment position number"""
+        self.assertEqual(self.pitchy.name, "toot")
+        self.assertEqual(self.pitchy.freq, 440.0)
+        self.assertEqual(self.pitchy.pos + 1, self.pitchy2.pos)
+        
     def test_get_name(self):
         """get_name should return a Pitch object string (name)"""
-        self.assertEqual(str(self.pitchy), self.pitchy.get_name())
-
+        self.assertEqual(self.pitchy.get_name(), "toot")
+        
     def test_get_pos(self):
-        """get_pos should return a Pitch object string (position)"""
-        pass
+        """get_pos should return a Pitch object integer (position)"""
+        self.assertEqual(self.pitchy.pos, self.pitchy.get_pos())
+        #self.assertEqual(self.pitchy2.get_pos(), -35)
 
     def test_get_freq(self):
         """get_freq should return a Pitch object float (frequency)"""
-        pass
-    
-    def test_play_pitch(self):
-        """play_pitch should emit a Pitch object frequency"""
-        pass
+        self.assertEqual(self.pitchy.get_freq(), 440.0)   
 
 
 class MotifTests(unittest.TestCase):
@@ -41,11 +47,13 @@ class MotifTests(unittest.TestCase):
     Description: test cases for Class Motif
     """
     def setUp(self):
-        self.motify = Motif()
-
+        # self.motify = Motif()
+        pass
+        
     def test_init(self):
         """motify should have a motif_list attribute, which is an empty list"""
-        self.assertTrue(isinstance(self.motify, list))
+        #self.assertTrue(isinstance(self.motify, list))
+        pass
         
     def test_build_motif(self):
         """build_motif should build a motif"""
@@ -65,7 +73,8 @@ class DanceTests(unittest.TestCase):
     Description: test cases for Class Dance
     """
     def setUp(self):
-        self.dancy = Dance(self.motify, "twirl")
+        # self.dancy = Dance(self.motify, "twirl")
+        pass
 
     def test_init(self):
         """dancy should have a Motif object and string"""
