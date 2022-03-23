@@ -9,7 +9,7 @@ Description: a class to modify and store strings
 class StringMod:
     """
     Class: StringMod
-    Description: represents a StringMod object and functionality to process strings
+    Description: represents a StringMod object and functionality to process, store strings
     """
     def __init__(self, chars):
         """
@@ -97,6 +97,32 @@ class StringMod:
         """
         return self.chars
 
+    def save_string(self, filename):
+        """
+        Method: save_string
+        Description: saves string content to a text file
+        Parameters:
+          filename: a text file
+        Preconditions: none
+        Postcondition: no change
+        Returns: None
+        """
+        with open(filename, 'a') as file:
+            file.write(self.chars)
+
+    def load_string(self, filename):
+        """
+        Method: load_string
+        Description: loads string content from a file
+        Parameters:
+          filename: a text file
+        Preconditions: none
+        Postcondition: the StringMod object has been modified
+        Returns: None
+        """
+        with open(filename) as file:
+            self.chars = file.read()
+            
     def __str__(self):
         """
         Method: __str__
