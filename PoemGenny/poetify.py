@@ -156,3 +156,45 @@ def scrape(url):
     return text
 
 text_list = scrape(url)
+
+
+def clean(text_list):
+    """
+    Function: clean
+    Description: tidies text scraped from a website, identifies types of words
+    Parameters:
+      text_list: a list of strings
+    Returns: a tuple, containing:
+        a list of all webpage words
+        a list of potential adjectives (from all webpage words)
+        a list of potential verbs (from all webpage words)
+        a string, representing the longest word (from all webpage words)
+    """
+    word_list = []
+    adj_list  = []
+    verb_list = []
+
+    for text_item in text_list:
+        get_text = list([char for char in text_item if char.isalpha()])
+        result   = "".join(get_text)
+        if result not in word_list and len(result) != 0:
+            word_list.append(result)
+
+    for word in word_list:
+        if len(word) > 3:
+            longest_word = "bob"
+            if len(word) > len(longest_word):
+               longest_word = word 
+            if word[-1] == "y":
+                adj_list.append(word)
+            elif word[-2:] == "ed" or word[-3:] == "ing":
+                verb_list.append(word)
+       
+    return word_list, adj_list, verb_list, longest_word
+
+(word_list, adj_list, verb_list, longest_word) = clean(text_list)
+
+print("All website text: ", word_list)
+print("Potential adjectives: ", adj_list)
+print("Potential verbs: ", verb_list)
+print("Longest word: ", longest_word)
