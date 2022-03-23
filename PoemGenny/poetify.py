@@ -5,7 +5,6 @@ Author: Dima (Ugi77)
 Description: a class to modify and store strings
 """
 
-
 class StringMod:
     """
     Class: StringMod
@@ -133,3 +132,27 @@ class StringMod:
         Returns: a string
         """
         return self.chars
+
+
+## END OF CLASS STRINGMOD ##
+
+import requests
+from bs4 import BeautifulSoup
+
+url = 'http://quotes.toscrape.com/tag/simile/'
+
+def scrape(url):
+    """
+    Function: scrape
+    Description: scrapes website, assembles text
+    Parameters:
+      url: a string, of a website address that can be safely scraped
+    Returns: a list, of all text from a webpage
+    """
+    response     = requests.get(url)
+    soup         = BeautifulSoup(response.text, 'html.parser')
+    visible_text = soup.getText().lower()
+    text         = visible_text.split()
+    return text
+
+text_list = scrape(url)
