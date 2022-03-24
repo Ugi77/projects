@@ -157,7 +157,7 @@ def scrape(url):
     text         = visible_text.split()
     return text
 
-# text_list = scrape(url)
+text_list = scrape(url)
 
 
 def clean(text_list):
@@ -204,7 +204,7 @@ def clean(text_list):
     longest_word = StringMod(longest_word)
     return others_list, adj_list, verb_list, longest_word
 
-# (others_list, adj_list, verb_list, longest_word) = clean(text_list)
+(others_list, adj_list, verb_list, longest_word) = clean(text_list)
 
 # print("Website text minus potential adjectives/verbs: ")
 # for item in others_list:
@@ -218,3 +218,34 @@ def clean(text_list):
 # print("Longest word: ", longest_word)
 
 
+def build_poem(others_list, adj_list, verb_list, longest_word):
+
+    poem_depot = []
+    words = random.sample(others_list, 3)
+    adjs = random.sample(adj_list, 3)
+    verbs = random.sample(verb_list, 3)
+    
+    for word in words:
+        word.append_string("", "!")
+        poem_depot.append(word)
+        
+    for word in adjs:
+        word.append_string("'", "'")
+        poem_depot.append(word)
+        
+    for word in verbs:
+        word.append_string(word.get_string()[0:3] + "-" + word.get_string()[0:3] + "-", "")
+        poem_depot.append(word)
+
+    trim_word = longest_word.reduce_string(1)
+    poem_depot.append(trim_word)
+    trim_word = longest_word.reduce_string(1)
+    poem_depot.append(trim_word)
+    trim_word = longest_word.reduce_string(1)
+    poem_depot.append(trim_word)
+    
+    return poem_depot
+    
+poem_depot = build_poem(others_list, adj_list, verb_list, longest_word)  
+for item in poem_depot:
+    print(item) 
