@@ -24,17 +24,17 @@ class StringMod:
         """
         self.chars = chars
 
-    def append_string(self, addon):
+    def append_string(self, prefix, suffix):
         """
         Method: append_string
-        Description: appends a new string to an existing StringMod object
+        Description: appends a prefix and/or suffix to an existing StringMod object
         Parameters:
            addon: a string
         Preconditions: none
         Postcondition: the StringMod object has been modified
         Returns: a StringMod object
         """
-        self.chars = self.chars + addon
+        self.chars = prefix + self.chars + suffix
         return self.chars
 
     def remove_string(self, reduce_start, reduce_end):
@@ -218,18 +218,3 @@ print("Potential verbs: ")
 for item in verb_list:
     print(item)
 print("Longest word: ", longest_word)
-
-
-def build_poem(others_list, adj_list, verb_list, longest_word):
-    pass
-# randomly sample 16 words from word_list, save as list with var
-    # words = random.sample(word_list, 16)
-    # for word in words:
-        
-# to first 3, add exclamation point
-# to next 3, add "-word"
-# randomly sample 5 words from verb_list and adj_list, save as list with var
-# take longest word and cut beginning/end in cycles
-    
-    
-    
