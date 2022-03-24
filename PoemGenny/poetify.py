@@ -136,10 +136,14 @@ class StringMod:
 
 ## END OF CLASS STRINGMOD ##
 
+import random
 import requests
 from bs4 import BeautifulSoup
 
-url = 'http://quotes.toscrape.com/tag/simile/'
+url = "http://books.toscrape.com"
+# "https://www.rithmschool.com/blog"
+# "http://quotes.toscrape.com"
+# "http://books.toscrape.com"
 
 def scrape(url):
     """
@@ -173,7 +177,9 @@ def clean(text_list):
     word_list = []
     adj_list  = []
     verb_list = []
-
+    others_list = []    
+    longest_word = "taco"
+    
     for text_item in text_list:
         get_text = list([char for char in text_item if char.isalpha()])
         result   = "".join(get_text)
@@ -181,20 +187,49 @@ def clean(text_list):
             word_list.append(result)
 
     for word in word_list:
-        if len(word) > 3:
-            longest_word = "bob"
-            if len(word) > len(longest_word):
-               longest_word = word 
+        if len(word) > 3:            
             if word[-1] == "y":
-                adj_list.append(word)
+                word_obj = StringMod(word)
+                adj_list.append(word_obj)
             elif word[-2:] == "ed" or word[-3:] == "ing":
-                verb_list.append(word)
+                word_obj = StringMod(word)
+                verb_list.append(word_obj)
+            elif len(word) > len(longest_word):
+                  longest_word = word
+            else:
+                word_obj = StringMod(word)
+                others_list.append(word_obj)
+        else:
+            word_obj = StringMod(word)
+            others_list.append(word_obj)
        
-    return word_list, adj_list, verb_list, longest_word
+    longest_word = StringMod(longest_word)
+    return others_list, adj_list, verb_list, longest_word
 
-(word_list, adj_list, verb_list, longest_word) = clean(text_list)
+(others_list, adj_list, verb_list, longest_word) = clean(text_list)
 
-print("All website text: ", word_list)
-print("Potential adjectives: ", adj_list)
-print("Potential verbs: ", verb_list)
+print("Website text minus potential adjectives/verbs: ")
+for item in others_list:
+    print(item) 
+print("Potential adjectives: ")
+for item in adj_list:
+    print(item)
+print("Potential verbs: ")
+for item in verb_list:
+    print(item)
 print("Longest word: ", longest_word)
+
+
+def build_poem(others_list, adj_list, verb_list, longest_word):
+    pass
+# randomly sample 16 words from word_list, save as list with var
+    # words = random.sample(word_list, 16)
+    # for word in words:
+        
+# to first 3, add exclamation point
+# to next 3, add "-word"
+# randomly sample 5 words from verb_list and adj_list, save as list with var
+# take longest word and cut beginning/end in cycles
+    
+    
+    
