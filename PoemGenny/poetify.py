@@ -37,18 +37,17 @@ class StringMod:
         self.chars = prefix + self.chars + suffix
         return self.chars
 
-    def remove_string(self, reduce_start, reduce_end):
+    def reduce_string(self, reduction):
         """
-        Method: remove_string
+        Method: reduce_string
         Description: removes a substring from an existing StringMod object
         Parameters:
-          reduce_start: a positive integer indicating starting index position
-          reduce_end: a positive integer indicating ending index position
+          reduction: a positive integer indicating character length to trim on both ends
         Preconditions: none
         Postcondition: the StringMod object has been modified
         Returns: the remaining StringMod object
         """
-        self.chars = self.chars[0:reduce_start] + self.chars[reduce_end:]
+        self.chars = self.chars[reduction:-reduction]
         return self.chars
 
     def mirror_string(self):
@@ -133,7 +132,6 @@ class StringMod:
         """
         return self.chars
 
-
 ## END OF CLASS STRINGMOD ##
 
 import random
@@ -159,7 +157,7 @@ def scrape(url):
     text         = visible_text.split()
     return text
 
-text_list = scrape(url)
+# text_list = scrape(url)
 
 
 def clean(text_list):
@@ -206,15 +204,17 @@ def clean(text_list):
     longest_word = StringMod(longest_word)
     return others_list, adj_list, verb_list, longest_word
 
-(others_list, adj_list, verb_list, longest_word) = clean(text_list)
+# (others_list, adj_list, verb_list, longest_word) = clean(text_list)
 
-print("Website text minus potential adjectives/verbs: ")
-for item in others_list:
-    print(item) 
-print("Potential adjectives: ")
-for item in adj_list:
-    print(item)
-print("Potential verbs: ")
-for item in verb_list:
-    print(item)
-print("Longest word: ", longest_word)
+# print("Website text minus potential adjectives/verbs: ")
+# for item in others_list:
+#     print(item) 
+# print("Potential adjectives: ")
+# for item in adj_list:
+#     print(item)
+# print("Potential verbs: ")
+# for item in verb_list:
+#     print(item)
+# print("Longest word: ", longest_word)
+
+
