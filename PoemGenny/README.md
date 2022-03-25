@@ -1,10 +1,7 @@
 # PoemGenny
 
 ## Description
-To combine various Python coding techniques, I created a project that will scrape a website, select and organize word text, modify text elements, and re-assemble these words. 
-
-The output is free-form poetry that would make a Vogon crumble.
-Example:
+To combine various Python coding techniques, I created a workflow that will scrape a website, select and organize word text, modify text elements, and re-assemble these words into free-form poetry that would make a Vogon crumble:
 ```python
 light in the self! 'randomly' sta-star-starving 
 
