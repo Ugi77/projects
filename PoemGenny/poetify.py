@@ -29,10 +29,11 @@ class StringMod:
         Method: append_string
         Description: appends a prefix and/or suffix to an existing StringMod object
         Parameters:
-           addon: a string
+           prefix: a string
+           suffix: a string
         Preconditions: none
         Postcondition: the StringMod object has been modified
-        Returns: a StringMod object
+        Returns: a string
         """
         self.chars = prefix + self.chars + suffix
         return self.chars
@@ -45,7 +46,7 @@ class StringMod:
           reduction: a positive integer indicating character length to trim on both ends
         Preconditions: none
         Postcondition: the StringMod object has been modified
-        Returns: the remaining StringMod object
+        Returns: a string
         """
         self.chars = self.chars[reduction:-reduction]
         return self.chars
@@ -94,7 +95,7 @@ class StringMod:
         Returns: a string
         """
         return self.chars
-
+    
     def save_string(self, filename):
         """
         Method: save_string
@@ -134,6 +135,10 @@ class StringMod:
 
 ## END OF CLASS STRINGMOD ##
 
+# test = StringMod('HazironYam')
+# res = test.append_string('a', 'b')
+
+
 import random
 import requests
 from bs4 import BeautifulSoup
@@ -166,11 +171,11 @@ def clean(text_list):
     Description: tidies text scraped from a website, identifies types of words
     Parameters:
       text_list: a list of strings
-    Returns: a tuple, containing:
-        a list of all webpage words
-        a list of potential adjectives (from all webpage words)
-        a list of potential verbs (from all webpage words)
-        a string, representing the longest word (from all webpage words)
+    Returns: a tuple, containing 3 lists of StringMod objects:
+        all webpage words
+        potential adjectives (from all webpage words)
+        potential verbs (from all webpage words)
+        ...and the longest word (from all webpage words)
     """
     word_list = []
     adj_list  = []
@@ -218,15 +223,26 @@ def clean(text_list):
 # print("Longest word: ", longest_word)
 
 
-def build_poem(others_list, adj_list, verb_list, longest_word):
-
+def modify_words(others_list, adj_list, verb_list, longest_word):
+    """
+    Function: build_poem
+    Description: modifies words for use in poem
+    Parameters:
+      others_list:  a list, of StringMod objects
+      adj_list:     a list, of StringMod objects ending in "y"
+      verb_list:    a list, of StringMod objects ending in "ed" or "ing"
+      longest_word: a StringMod object
+    Returns: a list, of modified words
+    """
+    
     poem_depot = []
     words = random.sample(others_list, 3)
     adjs = random.sample(adj_list, 3)
     verbs = random.sample(verb_list, 3)
+    counter = 1
     
     for word in words:
-        word.append_string("", "!")
+        word.append_string("", random.choice(["!", "?"]))
         poem_depot.append(word)
         
     for word in adjs:
@@ -234,18 +250,17 @@ def build_poem(others_list, adj_list, verb_list, longest_word):
         poem_depot.append(word)
         
     for word in verbs:
-        word.append_string(word.get_string()[0:3] + "-" + word.get_string()[0:3] + "-", "")
+        word.append_string(word.get_string()[0:3] + "-" + word.get_string()[0:4] + "-", "")
         poem_depot.append(word)
 
-    trim_word = longest_word.reduce_string(1)
-    poem_depot.append(trim_word)
-    trim_word = longest_word.reduce_string(1)
-    poem_depot.append(trim_word)
-    trim_word = longest_word.reduce_string(1)
-    poem_depot.append(trim_word)
+    while counter < len(longest_word.get_string()) + 3:
+        res = StringMod(longest_word.reduce_string(1))
+        res.append_string("...", "...")
+        poem_depot.append(res)
+        counter += 1
     
     return poem_depot
     
-poem_depot = build_poem(others_list, adj_list, verb_list, longest_word)  
+poem_depot = modify_words(others_list, adj_list, verb_list, longest_word)  
 for item in poem_depot:
     print(item) 
