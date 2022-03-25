@@ -2,7 +2,7 @@
 
 """
 Author: Dima (Ugi77)
-Description: a class to modify and store strings
+Description: a class to modify strings
 """
 
 class StringMod:
@@ -95,32 +95,6 @@ class StringMod:
         Returns: a string
         """
         return self.chars
-    
-    def save_string(self, filename):
-        """
-        Method: save_string
-        Description: saves string content to a text file
-        Parameters:
-          filename: a text file
-        Preconditions: none
-        Postcondition: no change
-        Returns: None
-        """
-        with open(filename, 'a') as file:
-            file.write(self.chars)
-
-    def load_string(self, filename):
-        """
-        Method: load_string
-        Description: loads string content from a file
-        Parameters:
-          filename: a text file
-        Preconditions: none
-        Postcondition: the StringMod object has been modified
-        Returns: None
-        """
-        with open(filename) as file:
-            self.chars = file.read()
             
     def __str__(self):
         """
@@ -134,10 +108,6 @@ class StringMod:
         return self.chars
 
 ## END OF CLASS STRINGMOD ##
-
-# test = StringMod('HazironYam')
-# res = test.append_string('a', 'b')
-
 
 import random
 import requests
@@ -177,10 +147,10 @@ def clean(text_list):
         potential verbs (from all webpage words)
         ...and the longest word (from all webpage words)
     """
-    word_list = []
-    adj_list  = []
-    verb_list = []
-    others_list = []    
+    word_list    = []
+    adj_list     = []
+    verb_list    = []
+    others_list  = []    
     longest_word = "taco"
     
     for text_item in text_list:
@@ -225,7 +195,7 @@ def clean(text_list):
 
 def modify_words(others_list, adj_list, verb_list, longest_word):
     """
-    Function: build_poem
+    Function: modify_words
     Description: modifies words for use in poem
     Parameters:
       others_list:  a list, of StringMod objects
@@ -253,7 +223,7 @@ def modify_words(others_list, adj_list, verb_list, longest_word):
         word.append_string(word.get_string()[0:3] + "-" + word.get_string()[0:4] + "-", "")
         poem_depot.append(word)
 
-    while counter < len(longest_word.get_string()) + 3:
+    while counter < 4:
         res = StringMod(longest_word.reduce_string(1))
         res.append_string("...", "...")
         poem_depot.append(res)
@@ -262,5 +232,73 @@ def modify_words(others_list, adj_list, verb_list, longest_word):
     return poem_depot
     
 poem_depot = modify_words(others_list, adj_list, verb_list, longest_word)  
-for item in poem_depot:
-    print(item) 
+# for item in poem_depot:
+#     print(item) 
+
+    
+def build_poem(word_objects, pretty_words):
+    """
+    Function: build_poem
+    Description: crafts a poem from modified words (StringMod objects)
+    Parameters:
+      word_objects: a list, of StringMod objects
+      pretty_words: a list, of (modified) StringMod objects
+    Returns: strings, of modified words
+    """
+    poem = []
+    others_list_boundary = len(others_list) - 3
+    word_range = random.randrange(0, others_list_boundary)
+    rando_words = others_list[word_range:word_range + 3]
+    
+    for word in rando_words:
+        poem.append(word)    
+    poem.extend([pretty_words[0], pretty_words[3], pretty_words[6]])
+    
+    for word in rando_words:
+        poem.append(word)
+    poem.extend([pretty_words[1], pretty_words[4], pretty_words[7]])
+
+    word_range = random.randrange(0, others_list_boundary)
+    rando_words = others_list[word_range:word_range + 3]
+    for word in rando_words:
+        poem.append(word)
+    poem.extend([pretty_words[2], pretty_words[5], pretty_words[8]])
+    poem.extend([pretty_words[9], pretty_words[10], pretty_words[11]])
+            
+    return poem
+poem = build_poem(others_list, poem_depot)
+
+
+def save_string(filename, new_line):
+    """
+    Function: save_string
+    Description: saves string content to a text file
+    Parameters:
+      filename: a text file
+    Returns: None
+    """
+    with open(filename, 'a') as file:
+        file.write(new_line)
+        file.write("\n")
+
+
+for item in poem[0:6]:
+    res = item.get_string()
+    print(res, end = ' ')
+    save_string("test.txt", res)
+print('\n')
+for item in poem[6:12]:
+    res = item.get_string()
+    print(res, end = ' ')
+    save_string("test.txt", res)
+print('\n') 
+for item in poem[12:18]:
+    res = item.get_string()
+    print(res, end = ' ')
+    save_string("test.txt", res)
+print('\n')   
+for item in poem[18:24]:
+    res = item.get_string()
+    print(res, end = ' ')
+    save_string("test.txt", res)
+
