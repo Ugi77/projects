@@ -285,6 +285,7 @@ def build_poem(word_objects, pretty_words):
     poem.extend([pretty_words[9], pretty_words[10], pretty_words[11]])
             
     return poem
+
 poem = build_poem(remains_list, poem_depot)
 
 
@@ -300,24 +301,14 @@ def save_string(filename, new_line):
         file.write(new_line)
         file.write("\n")
 
-
-for item in poem[0:6]:
-    res = item.get_string()
-    print(res, end = ' ')
-#    save_string("test.txt", res)
-print('\n')
-for item in poem[6:12]:
-    res = item.get_string()
-    print(res, end = ' ')
-#    save_string("test.txt", res)
-print('\n') 
-for item in poem[12:18]:
-    res = item.get_string()
-    print(res, end = ' ')
-#    save_string("test.txt", res)
-print('\n')   
-for item in poem[18:24]:
-    res = item.get_string()
-    print(res, end = ' ')
-#    save_string("test.txt", res)
-
+def output_poem(text_file = True):
+    counter = 0
+    while counter < 19:
+        for item in poem[counter:counter + 6]:
+            res = item.get_string()
+            print(res, end = ' ')
+            if text_file:
+                save_string("poem.txt", res)
+        print('\n')
+        counter += 6
+output_poem(False)
