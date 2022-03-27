@@ -126,7 +126,7 @@ def scrape(url):
     Description: scrapes website, assembles text
     Parameters:
       url: a string, of a website address that can be safely scraped
-    Returns: a list, of all text from a webpage
+    Returns: a list of strings, of all text from a webpage
     """
     response     = requests.get(url)
     soup         = BeautifulSoup(response.text, 'html.parser')
@@ -152,28 +152,35 @@ def clean(text_list):
     word_list    = []
     adj_list     = []
     verb_list    = []
-    remains_list  = []    
+    remains_list = []    
     longest_word = "taco"
     
     for text_item in text_list:
+        # omit numbers, punctuation, & symbols
         get_text = list([char for char in text_item if char.isalpha()])
         result   = "".join(get_text)
+        # omit repeats and empty strings
         if result not in word_list and len(result) != 0:
             word_list.append(result)
 
     for word in word_list:
-        if len(word) > 3:            
-            if word[-1] == "y":
+        if len(word) > 3:
+            # create list of potential adjectives            
+            if word[-1] == "y" or word[-2:] ==  "ly":
                 word_obj = StringMod(word)
                 adj_list.append(word_obj)
+            # create list of potential verbs
             elif word[-2:] == "ed" or word[-3:] == "ing":
                 word_obj = StringMod(word)
                 verb_list.append(word_obj)
+            # select longest word
             elif len(word) > len(longest_word):
                   longest_word = word
+            # store remaining words > len(3)
             else:
                 word_obj = StringMod(word)
                 remains_list.append(word_obj)
+        # sotre all remaining words
         else:
             word_obj = StringMod(word)
             remains_list.append(word_obj)
@@ -213,6 +220,7 @@ def modify_words(adj_list, verb_list, remains_list, longest_word):
     verbs = random.sample(verb_list, 3)
     counter = 1
     
+    # iterate through each list, modify StringMod objects and store in collective list
     for word in words:
         word.append_string("", random.choice(["!", "?"]))
         poem_depot.append(word)
@@ -248,22 +256,31 @@ def build_poem(word_objects, pretty_words):
     Returns: a list, of StringMod objects
     """
     poem = []
-    remains_list_boundary = len(remains_list) - 3
-    word_range = random.randrange(0, remains_list_boundary)
+    # set var to select random integer between 0 and remains_list length (minus 3)
+    # three is subtracted to avoid IndexError when slicing
+    word_range = random.randrange(0, len(remains_list) - 3)
+    # slice 3 words from remains_list
     rando_words = remains_list[word_range:word_range + 3]
     
+    # add word slice to poem
     for word in rando_words:
-        poem.append(word)    
+        poem.append(word) 
+    # then add 3 modified words
     poem.extend([pretty_words[0], pretty_words[3], pretty_words[6]])
     
+    # repeat add of word slice to poem
     for word in rando_words:
         poem.append(word)
+     # then add 3 new modified words    
     poem.extend([pretty_words[1], pretty_words[4], pretty_words[7]])
 
-    word_range = random.randrange(0, remains_list_boundary)
+    # select new random 3-word slice
+    word_range = random.randrange(0, len(remains_list) - 3)
     rando_words = remains_list[word_range:word_range + 3]
+    # add this to the poem
     for word in rando_words:
         poem.append(word)
+    # add additional modified words
     poem.extend([pretty_words[2], pretty_words[5], pretty_words[8]])
     poem.extend([pretty_words[9], pretty_words[10], pretty_words[11]])
             
