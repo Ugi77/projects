@@ -31,20 +31,23 @@ class StringModTests(unittest.TestCase):
 
     def test_mirror_string(self):
         """mirror_string should return a mirror of a string"""
-        pass
+        test_string = self.stringy.mirror_string()
+        self.assertEqual("olleh", test_string)
 
     def test_is_not_palindrome(self):
         """is_palindrome should return False if a string is not a palindrome"""
-        pass
+        test_string = self.stringy.is_palindrome()
+        self.assertEqual(False, test_string)
 
     def test_is_palindrome(self):
         """is_palindrome should return True if a string is a palindrome"""
-        pass
+        self.stringy = StringMod("tacocat")
+        test_string = self.stringy.is_palindrome()
+        self.assertEqual(True, test_string)
 
     def test_get_string(self):
         """get_string should return a StringMod object string"""
-        pass
-
+        self.assertEqual(str(self.stringy), self.stringy.get_string())
 
 if __name__ == "__main__":
     unittest.main()
