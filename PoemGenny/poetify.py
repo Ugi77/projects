@@ -207,13 +207,12 @@ def modify_words(adj_list, verb_list, remains_list, longest_word):
     Function: modify_words
     Description: modifies words for use in poem
     Parameters:
-      remains_list:  a list, of StringMod objects
+      remains_list: a list, of StringMod objects
       adj_list:     a list, of StringMod objects ending in "y"
       verb_list:    a list, of StringMod objects ending in "ed" or "ing"
       longest_word: a StringMod object
     Returns: a list, of StringMod objects
-    """
-    
+    """   
     poem_depot = []
     words = random.sample(remains_list, 3)
     adjs = random.sample(adj_list, 3)
@@ -246,13 +245,13 @@ poem_depot = modify_words(remains_list, adj_list, verb_list, longest_word)
 #     print(item) 
 
     
-def build_poem(word_objects, pretty_words):
+def build_poem(word_objects, mod_words):
     """
     Function: build_poem
     Description: crafts a poem from StringMod objects
     Parameters:
       word_objects: a list, of StringMod objects
-      pretty_words: a list, of (modified) StringMod objects
+      mod_words: a list, of (modified) StringMod objects
     Returns: a list, of StringMod objects
     """
     poem = []
@@ -266,13 +265,13 @@ def build_poem(word_objects, pretty_words):
     for word in rando_words:
         poem.append(word) 
     # then add 3 modified words
-    poem.extend([pretty_words[0], pretty_words[3], pretty_words[6]])
+    poem.extend([mod_words[0], mod_words[3], mod_words[6]])
     
     # repeat add of word slice to poem
     for word in rando_words:
         poem.append(word)
      # then add 3 new modified words    
-    poem.extend([pretty_words[1], pretty_words[4], pretty_words[7]])
+    poem.extend([mod_words[1], mod_words[4], mod_words[7]])
 
     # select new random 3-word slice
     word_range = random.randrange(0, len(remains_list) - 3)
@@ -281,8 +280,8 @@ def build_poem(word_objects, pretty_words):
     for word in rando_words:
         poem.append(word)
     # add additional modified words
-    poem.extend([pretty_words[2], pretty_words[5], pretty_words[8]])
-    poem.extend([pretty_words[9], pretty_words[10], pretty_words[11]])
+    poem.extend([mod_words[2], mod_words[5], mod_words[8]])
+    poem.extend([mod_words[9], mod_words[10], mod_words[11]])
             
     return poem
 
@@ -295,13 +294,22 @@ def save_string(filename, new_line):
     Description: saves string content to a text file
     Parameters:
       filename: a text file
+      new_line: a string
     Returns: None
     """
     with open(filename, 'a') as file:
         file.write(new_line)
         file.write("\n")
 
+
 def output_poem(text_file = True):
+    """
+    Function: output_poem
+    Description: outputs poem in a formatted shape to console, and words to text file
+    Parameters:
+      text_file: a Boolean, default (True) set to create and output text file
+    Returns: None
+    """
     counter = 0
     while counter < 19:
         for item in poem[counter:counter + 6]:
@@ -311,4 +319,4 @@ def output_poem(text_file = True):
                 save_string("poem.txt", res)
         print('\n')
         counter += 6
-output_poem(False)
+output_poem()
