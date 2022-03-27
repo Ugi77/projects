@@ -204,7 +204,7 @@ def modify_words(adj_list, verb_list, remains_list, longest_word):
       adj_list:     a list, of StringMod objects ending in "y"
       verb_list:    a list, of StringMod objects ending in "ed" or "ing"
       longest_word: a StringMod object
-    Returns: a list, of modified words
+    Returns: a list, of StringMod objects
     """
     
     poem_depot = []
@@ -241,11 +241,11 @@ poem_depot = modify_words(remains_list, adj_list, verb_list, longest_word)
 def build_poem(word_objects, pretty_words):
     """
     Function: build_poem
-    Description: crafts a poem from modified words (StringMod objects)
+    Description: crafts a poem from StringMod objects
     Parameters:
       word_objects: a list, of StringMod objects
       pretty_words: a list, of (modified) StringMod objects
-    Returns: strings, of modified words
+    Returns: a list, of StringMod objects
     """
     poem = []
     remains_list_boundary = len(remains_list) - 3
