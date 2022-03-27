@@ -2,7 +2,8 @@
 
 """
 Author: Dima (Ugi77)
-Description: a class to modify strings
+Description: the following workflow scrapes a website, selects and organizes word text, 
+modifies text elements, and re-assembles these words into free-form poetry.
 """
 
 class StringMod:
@@ -58,7 +59,7 @@ class StringMod:
         Parameters: none
         Preconditions: none
         Postcondition: the StringMod object has been modified
-        Returns: a StringMod object
+        Returns: a string
         """
         self.chars = self.chars.lower()
         result = ''
@@ -107,6 +108,7 @@ class StringMod:
         """
         return self.chars
 
+
 ## END OF CLASS STRINGMOD ##
 
 import random
@@ -142,15 +144,15 @@ def clean(text_list):
     Parameters:
       text_list: a list of strings
     Returns: a tuple, containing 3 lists of StringMod objects:
-        all webpage words
         potential adjectives (from all webpage words)
         potential verbs (from all webpage words)
-        ...and the longest word (from all webpage words)
+        remaining webpage words (from all webpage words)
+        ...and a StringMod object of the longest word (from all webpage words)
     """
     word_list    = []
     adj_list     = []
     verb_list    = []
-    others_list  = []    
+    remains_list  = []    
     longest_word = "taco"
     
     for text_item in text_list:
@@ -171,18 +173,18 @@ def clean(text_list):
                   longest_word = word
             else:
                 word_obj = StringMod(word)
-                others_list.append(word_obj)
+                remains_list.append(word_obj)
         else:
             word_obj = StringMod(word)
-            others_list.append(word_obj)
+            remains_list.append(word_obj)
        
     longest_word = StringMod(longest_word)
-    return others_list, adj_list, verb_list, longest_word
+    return adj_list, verb_list, remains_list, longest_word
 
-(others_list, adj_list, verb_list, longest_word) = clean(text_list)
+(adj_list, verb_list, remains_list, longest_word) = clean(text_list)
 
 # print("Website text minus potential adjectives/verbs: ")
-# for item in others_list:
+# for item in remains_list:
 #     print(item) 
 # print("Potential adjectives: ")
 # for item in adj_list:
@@ -193,12 +195,12 @@ def clean(text_list):
 # print("Longest word: ", longest_word)
 
 
-def modify_words(others_list, adj_list, verb_list, longest_word):
+def modify_words(adj_list, verb_list, remains_list, longest_word):
     """
     Function: modify_words
     Description: modifies words for use in poem
     Parameters:
-      others_list:  a list, of StringMod objects
+      remains_list:  a list, of StringMod objects
       adj_list:     a list, of StringMod objects ending in "y"
       verb_list:    a list, of StringMod objects ending in "ed" or "ing"
       longest_word: a StringMod object
@@ -206,7 +208,7 @@ def modify_words(others_list, adj_list, verb_list, longest_word):
     """
     
     poem_depot = []
-    words = random.sample(others_list, 3)
+    words = random.sample(remains_list, 3)
     adjs = random.sample(adj_list, 3)
     verbs = random.sample(verb_list, 3)
     counter = 1
@@ -231,7 +233,7 @@ def modify_words(others_list, adj_list, verb_list, longest_word):
     
     return poem_depot
     
-poem_depot = modify_words(others_list, adj_list, verb_list, longest_word)  
+poem_depot = modify_words(remains_list, adj_list, verb_list, longest_word)  
 # for item in poem_depot:
 #     print(item) 
 
@@ -246,9 +248,9 @@ def build_poem(word_objects, pretty_words):
     Returns: strings, of modified words
     """
     poem = []
-    others_list_boundary = len(others_list) - 3
-    word_range = random.randrange(0, others_list_boundary)
-    rando_words = others_list[word_range:word_range + 3]
+    remains_list_boundary = len(remains_list) - 3
+    word_range = random.randrange(0, remains_list_boundary)
+    rando_words = remains_list[word_range:word_range + 3]
     
     for word in rando_words:
         poem.append(word)    
@@ -258,15 +260,15 @@ def build_poem(word_objects, pretty_words):
         poem.append(word)
     poem.extend([pretty_words[1], pretty_words[4], pretty_words[7]])
 
-    word_range = random.randrange(0, others_list_boundary)
-    rando_words = others_list[word_range:word_range + 3]
+    word_range = random.randrange(0, remains_list_boundary)
+    rando_words = remains_list[word_range:word_range + 3]
     for word in rando_words:
         poem.append(word)
     poem.extend([pretty_words[2], pretty_words[5], pretty_words[8]])
     poem.extend([pretty_words[9], pretty_words[10], pretty_words[11]])
             
     return poem
-poem = build_poem(others_list, poem_depot)
+poem = build_poem(remains_list, poem_depot)
 
 
 def save_string(filename, new_line):
@@ -285,20 +287,20 @@ def save_string(filename, new_line):
 for item in poem[0:6]:
     res = item.get_string()
     print(res, end = ' ')
-    save_string("test.txt", res)
+#    save_string("test.txt", res)
 print('\n')
 for item in poem[6:12]:
     res = item.get_string()
     print(res, end = ' ')
-    save_string("test.txt", res)
+#    save_string("test.txt", res)
 print('\n') 
 for item in poem[12:18]:
     res = item.get_string()
     print(res, end = ' ')
-    save_string("test.txt", res)
+#    save_string("test.txt", res)
 print('\n')   
 for item in poem[18:24]:
     res = item.get_string()
     print(res, end = ' ')
-    save_string("test.txt", res)
+#    save_string("test.txt", res)
 
