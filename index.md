@@ -27,7 +27,6 @@ This collection houses my Python programming and data analysis projects.
  
  | Method | Language/tool | Status |
 | :----------- | :----------- | :----------- |
-
 | Data cleaning  | Python (Pandas)     | Complete  |
 | Descriptive statistics  | Python (Pandas)   | In progress |
 | Relational database creation | Pandas, PostgreSQL  | Up next |
