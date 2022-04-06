@@ -3,9 +3,9 @@
 File | Method | Language/tool | Status |
 | :----------- | :----------- | :----------- | :----------- |
 | clean_pandas.ipynb | Data cleaning  | Python (Pandas)     | Complete  |
-| desc_stats_pandas.ipynb | Descriptive statistics  | Python (Pandas)   | In progress |
-| | Relational database creation | Pandas, PostgreSQL  | Up next |
-| | Relational database queries | PostgreSQL  | To do |
+| desc_stats_pandas.ipynb | Descriptive statistics  | Python (Pandas)   | Complete |
+| | Relational database creation | Pandas, PostgreSQL  | In progress |
+| | Relational database queries | PostgreSQL  | Up next |
 | | Optimization algorithm | Python  | To do |
 | | Inferential statistics | R  | To do |
 | | Data visualization | Tableau  | To do |
