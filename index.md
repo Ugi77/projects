@@ -31,9 +31,9 @@ This collection houses my Python programming and data analysis projects.
 | Data cleaning  | Python (Pandas)     | Complete  |
 | Descriptive statistics  | Python (Pandas)   | Complete |
 | Relational database creation | Pandas, PostgreSQL  | Complete |
-| Relational database queries | PostgreSQL  | In progress |
-| Optimization algorithm | Python  | Up next |
-| Inferential statistics | R  | To do |
-| Data visualization | Tableau  | To do |
+| Relational database queries | PostgreSQL  | Complete |
+| Optimization algorithm | Python  | In progress |
+| Inferential statistics | R  | Up next |
+| Data visualization | Tableau  | To do |  
 
    - [Link to code](https://github.com/Ugi77/projects/tree/main/NutritionAnalysisTour)
