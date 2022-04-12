@@ -29,7 +29,7 @@ This collection houses my Python programming and data analysis projects.
    - [Link to code](https://github.com/Ugi77/projects/tree/main/NutritionAnalysisTour) 
    - Data Flow Diagram:
   
-![data_flow](https://github.com/Ugi77/projects/blob/main/NutritionAnalysisTour/data_flow.PNG)
+![data_flow](https://github.com/Ugi77/projects/blob/main/NutritionAnalysisTour/data_flow.PNG?raw=true)
 
    - Progress Table:
 
