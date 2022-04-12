@@ -27,8 +27,10 @@ This collection houses my Python programming and data analysis projects.
 **NutritionAnalysisTour:** This project takes a single .csv file -- Starbucks drink menu nutrition information -- through a series of analysis workflows, utilizing multiple methods:  
 
    - [Link to code](https://github.com/Ugi77/projects/tree/main/NutritionAnalysisTour) 
-   - Data Flow Diagram:  
+   - Data Flow Diagram:
+  
 ![data_flow](https://github.com/Ugi77/projects/blob/main/NutritionAnalysisTour/data_flow.PNG)
+
    - Progress Table:
 
  | Action | Language/tool | Status |
