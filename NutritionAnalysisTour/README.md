@@ -1,4 +1,6 @@
-**NutritionAnalysisTour:** This project takes a single .csv file -- Starbucks drink menu nutrition information -- and embarks upon an analysis tour, utilizing multiple programs and methods:  
+**NutritionAnalysisTour:** This project takes a single .csv file -- Starbucks drink menu nutrition information -- through a series of analysis workflows, utilizing multiple methods:  
+
+   - Progress Table:
  
 File | Action | Language/tool | Status |
 | :----------- | :----------- | :----------- | :----------- |
