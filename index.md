@@ -24,10 +24,12 @@ This collection houses my Python programming and data analysis projects.
 
 <p>&nbsp;</p>
 
-**NutritionAnalysisTour:** This project takes a single .csv file -- Starbucks drink menu nutrition information -- and embarks upon an analysis tour, utilizing multiple programs and methods:  
+**NutritionAnalysisTour:** This project takes a single .csv file -- Starbucks drink menu nutrition information -- through a series of analysis workflows, utilizing multiple methods:  
 
    - [Link to code](https://github.com/Ugi77/projects/tree/main/NutritionAnalysisTour) 
- 
+
+   - Progress Table:
+
  | Action | Language/tool | Status |
 | :----------- | :----------- | :----------- |
 | Data cleaning  | Python (Pandas)     | Complete  |
