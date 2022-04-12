@@ -1,5 +1,7 @@
 **NutritionAnalysisTour:** This project takes a single .csv file -- Starbucks drink menu nutrition information -- through a series of analysis workflows, utilizing multiple methods:  
 
+![data_flow](https://github.com/Ugi77/projects/blob/main/NutritionAnalysisTour/data_flow.PNG)
+
    - Progress Table:
  
 File | Action | Language/tool | Status |
