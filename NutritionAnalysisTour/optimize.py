@@ -3,26 +3,26 @@ import csv
 filename = open('sb_prep.csv', 'r')
 file     = csv.DictReader(filename)
 
-name = []
-cal  = []
-caff = []
-fat  = []
-sug  = []
+name_list = []
+cal_list  = []
+caff_list = []
+fat_list  = []
+sug_list  = []
  
 # iterate over each .csv row, append values to lists
 # cast nutritional values as floats
 for col in file:
-    name.append(col['prep_name'])
-    cal.append(int(float(col['calories_%dv'])))
-    caff.append(int(float(col['caffeine_%dv'])))
-    fat.append(int(float(col['fat_%dv'])))
-    sug.append(int(float(col['sugars_%dv'])))
+    name_list.append(col['prep_name'])
+    cal_list.append(int(float(col['calories_%dv'])))
+    caff_list.append(int(float(col['caffeine_%dv'])))
+    fat_list.append(int(float(col['fat_%dv'])))
+    sug_list.append(int(float(col['sugars_%dv'])))
  
-# print('Name:', name)
-# print('Calories:', cal)
-# print('Caffeine:', caff)
-# print('Fat:', fat)
-# print('Sugars:', sug)
+# print('Name:', name_list)
+# print('Calories:', cal_list)
+# print('Caffeine:', caff_list)
+# print('Fat:', fat_list)
+# print('Sugars:', sug_list)
 
 # Class: Drink
 # Description: represents aspects of a drink item
@@ -94,11 +94,34 @@ class Drink(object):
     # Postcondition: no change
     # Returns: a string    
     def __str__(self):
-        return self.name + ' %DV: ' + str(self.cal) + ' cal, ' + str(self.caff) + ' caff, ' + str(self.fat) + ' fat, ' + str(self.sug) + ' sug' 
+        # return self.name + ' %DV: ' + str(self.cal) + ' cal, ' + str(self.caff) + ' caff, ' + str(self.fat) + ' fat, ' + str(self.sug) + ' sug' 
+        return self.name
 
 # End of class Drink
 
-test = Drink("expresso", 3, 4, 5, 6)
-result = test.get_sug()
-print(test)
-print(result)
+# test = Drink("expresso", 3, 4, 5, 6)
+# result = test.get_sug()
+# print(test)
+# print(result)
+
+# Function: build_menu 
+# Description: takes in lists, generates a list of Drink objects
+# Parameters: 
+#     name_list: a list of strings, of drink names
+#     cal_list:  a list of floats, of calorie %DV values
+#     caff_list: a list of floats, of caffeine %DV values
+#     fat_list:  a list of floats, of fat %DV values
+#     sug_list:  a list of floats, of sugar %DV values
+# Returns: a list of Drink objects
+def build_menu(name_list, cal_list, caff_list, fat_list, sug_list):
+    menu = []
+    for i in range(len(name_list)):
+        # create a Drink object with a list element from name_list, cal_list, etc. at iterated index position
+        # add each Drink object to the menu list
+        drink_obj = Drink(name_list[i], cal_list[i], caff_list[i], fat_list, sug_list[i])
+        menu.append(drink_obj)
+    return menu
+
+drink_menu = build_menu(name_list, cal_list, caff_list, fat_list, sug_list)
+for item in drink_menu:
+    print(item)
