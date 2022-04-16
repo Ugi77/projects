@@ -11,6 +11,6 @@ File | Action | Language/tool | Status |
 | rel_db.ipynb | Relational database creation | Pandas, PostgreSQL  | Complete |
 | db_queries.ipynb | Relational database queries | PostgreSQL  | Complete |
 | prep_python.ipynb | Data preparation | Python (Pandas)  | Complete |
-| | Optimization algorithm | Python  | In progress |
-| | Inferential statistics | R  | Up next |
-| | Data visualization | Tableau  | To do |
+| optimize.py | Optimization algorithm | Python  | Complete |
+| | Inferential statistics | R  | In progress |
+| | Data visualization | Tableau  | Up next |
