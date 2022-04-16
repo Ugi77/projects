@@ -9,13 +9,17 @@ creates Drink objects to hold this info.  Then, the maxiumum drinks one can
 obtain (with a given calorie constraint) is output, based upon which value is 
 considered optimal: calories, caffeine, fats, or sugars.
 
+How to play:
+The "max_cal" parameter value of the "choose_greedy" function call can be 
+modified as wished.  For example, the provided value of 15 (representing 
+15% DV of calories), outputs all drinks maximized by one's vice of choice 
+(calories, caffeine, fats, or sugars) that are up to 15% DV of calories.
+
 Note: 
 This code was adapted from the MITx 6.00.2x Introduction to Computational Thinking 
 and Data Science course.  The basic structure originates from a lecture example, 
 and this was then modified to input a file, optimize a set of data with different 
 parameters, and output results in a new way.
-
-How to play:
 
 """
 
@@ -191,3 +195,28 @@ def greedy(drink_menu, max_cals, key_function):
     print('*************')
     
 # greedy(drink_menu, 10, Drink.get_caff)
+
+
+# Function: choose_greedy 
+# Description: prints itemized report of drinks one can take that are within the 
+#              calorie constraint, using calories, caffeine, fat, or sugar as best feature  
+# Parameters: 
+#     drink_menu: a list of Drink objects
+#     max_cals: an integer >= 0, representing maximum available calories to take
+# Returns: None
+def choose_greedy(drink_menu, max_cals):
+    print('Maximum drinks allocated by calories, for', str(max_cals) +'% DV calories:')
+    # call greedy function with the Drink object calories as the best feature
+    greedy(drink_menu, max_cals, Drink.get_cal)
+    
+    print('\nMaximum drinks allocated by caffeine, for', str(max_cals) +'% DV calories:')
+    # call greedy function with the Drink object caffeine as the best feature
+    greedy(drink_menu, max_cals, Drink.get_caff)
+    
+    print('\nMaximum drinks allocated by fats, for', str(max_cals) +'% DV calories:')
+    greedy(drink_menu, max_cals, Drink.get_fat)
+
+    print('\nMaximum drinks allocated by sugars, for', str(max_cals)+'% DV calories:')
+    greedy(drink_menu, max_cals, Drink.get_sug)
+    
+choose_greedy(drink_menu, 15)
