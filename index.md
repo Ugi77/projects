@@ -39,8 +39,8 @@ This collection houses my Python programming and data analysis projects.
 | Descriptive statistics  | Python (Pandas)   | Complete |
 | Relational database creation | Pandas, PostgreSQL  | Complete |
 | Relational database queries | PostgreSQL  | Complete |
-| Optimization algorithm | Python  | In progress |
-| Inferential statistics | R  | Up next |
-| Data visualization | Tableau  | To do |  
+| Optimization algorithm | Python  | Complete |
+| Inferential statistics | R  | In progress |
+| Data visualization | Tableau  | Up next |  
 
 
