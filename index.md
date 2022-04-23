@@ -40,7 +40,7 @@ This collection houses my Python programming and data analysis projects.
 | Relational database creation | Pandas, PostgreSQL  | Complete |
 | Relational database queries | PostgreSQL  | Complete |
 | Optimization algorithm | Python  | Complete |
-| Inferential statistics | R  | In progress |
-| Data visualization | Tableau  | Up next |  
+| Inferential statistics | R  | Complete |
+| Data visualization | Tableau  | In progress |  
 
 
