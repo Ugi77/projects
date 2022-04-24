@@ -10,7 +10,7 @@ This collection houses my Python programming and data analysis projects.
  
 <p>&nbsp;</p>
 
-**PoemGenny:** This demonstrates a Python workflow that generates a poem by scraping a website, then selecting, organizing, and modifying word text.  Output is then saved to a file, thus archiving poetry of such...epic, fulsome, magnitude that this code has been banned from the Vogsphere.  Try it out for yourself!
+**PoemGenny:** This Python workflow generates a poem by scraping a website, then selecting, organizing, and modifying word text.  Output is then saved to a file, thus archiving poetry of such...epic, fulsome, magnitude that this code has been banned from the Vogsphere.  Try it out for yourself!
   - [Link to code](https://github.com/Ugi77/projects/tree/main/PoemGenny)
   - Example output:
 
