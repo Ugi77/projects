@@ -26,7 +26,8 @@ This collection houses my Python programming and data analysis projects.
 
 **NutritionAnalysisTour:** This project takes a single .csv file -- Starbucks drink menu nutrition information -- through a series of analysis workflows, utilizing multiple methods:  
 
-   - [Link to code](https://github.com/Ugi77/projects/tree/main/NutritionAnalysisTour) 
+   - [Link to code](https://github.com/Ugi77/projects/tree/main/NutritionAnalysisTour)
+   - [Link to Tableau Viz](https://public.tableau.com/app/profile/ugi1182/viz/desc_stats_tableau/StarbucksNutritionalValues?publish=yes) 
    - Data Flow Diagram:
   
 ![data_flow](https://github.com/Ugi77/projects/blob/main/NutritionAnalysisTour/data_flow.PNG?raw=true)
@@ -41,6 +42,6 @@ This collection houses my Python programming and data analysis projects.
 | Relational database queries | PostgreSQL  | Complete |
 | Optimization algorithm | Python  | Complete |
 | Inferential statistics | R  | Complete |
-| Data visualization | Tableau  | In progress |  
+| [Data visualization](https://public.tableau.com/app/profile/ugi1182/viz/desc_stats_tableau/StarbucksNutritionalValues?publish=yes)| Tableau  | In progress |  
 
 
