@@ -14,4 +14,4 @@ File | Action | Language/tool | Status |
 | optimize.py | Optimization algorithm | Python  | Complete |
 | prep_r_corr.ipynb | Data refinement | Python (Pandas)  | Complete |
 | inferential_r.ipynb | Inferential statistics | R  | Complete |
-| | Data visualization | Tableau  | In progress |
+|[Link to Tableau Viz](https://public.tableau.com/app/profile/ugi1182/viz/desc_stats_tableau/StarbucksNutritionalValues?publish=yes) | Data visualization | Tableau  | In progress |
