@@ -5,13 +5,13 @@ This collection houses my Python programming and data analysis projects.
 ### Projects
 
 **DanceItRobit:** To increase my Python coding skills, I was gifted with a coding robot. I wanted to challenge myself to create an advanced program that utilized the robot's full capabilities, my music background, and some rigorous OOP. The result is this program, which abstracts pitch/keyboard creation and inputs a user's musical motifs. The output is a robot's artistic expression through song and postmodern contact-improvisation industrial dance.
-- [Link to code](https://github.com/Ugi77/projects/tree/main/DanceItRobit)
-- [Link to output / robot performance](https://user-images.githubusercontent.com/97997533/157977307-b7b175e4-75cd-48e1-baef-2c861e1e5930.mp4)
+- [Code](https://github.com/Ugi77/projects/tree/main/DanceItRobit)
+- [Robot performance](https://user-images.githubusercontent.com/97997533/157977307-b7b175e4-75cd-48e1-baef-2c861e1e5930.mp4)
  
 <p>&nbsp;</p>
 
 **PoemGenny:** This Python workflow generates a poem by scraping a website, then selecting, organizing, and modifying word text.  Output is then saved to a file, thus archiving poetry of such...epic, fulsome, magnitude that this code has been banned from the Vogsphere.  Try it out for yourself!
-  - [Link to code](https://github.com/Ugi77/projects/tree/main/PoemGenny)
+  - [Code](https://github.com/Ugi77/projects/tree/main/PoemGenny)
   - Example output:
 
 *all books to classics? 'mystery' scr-scra-scraped* 
@@ -26,8 +26,8 @@ This collection houses my Python programming and data analysis projects.
 
 **NutritionAnalysisTour:** This project takes a single .csv file -- Starbucks drink menu nutrition information -- through a series of analysis workflows, utilizing multiple methods:  
 
-   - [Link to code](https://github.com/Ugi77/projects/tree/main/NutritionAnalysisTour)
-   - [Link to Tableau Viz](https://public.tableau.com/app/profile/ugi1182/viz/desc_stats_tableau/StarbucksNutritionalValues?publish=yes) 
+   - [Code](https://github.com/Ugi77/projects/tree/main/NutritionAnalysisTour)
+   - [Tableau Vizzes](https://public.tableau.com/app/profile/ugi1182) 
    - Data Flow Diagram:
   
 ![data_flow](https://github.com/Ugi77/projects/blob/main/NutritionAnalysisTour/data_flow.PNG?raw=true)
@@ -42,6 +42,6 @@ This collection houses my Python programming and data analysis projects.
 | Relational database queries | PostgreSQL  | Complete |
 | Optimization algorithm | Python  | Complete |
 | Inferential statistics | R  | Complete |
-| [Data visualization](https://public.tableau.com/app/profile/ugi1182/viz/desc_stats_tableau/StarbucksNutritionalValues?publish=yes)| Tableau  | In progress |  
+| [Tableau Vizzes](https://public.tableau.com/app/profile/ugi1182)| Tableau  | In progress |  
 
 
