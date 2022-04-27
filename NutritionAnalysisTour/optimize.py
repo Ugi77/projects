@@ -18,37 +18,12 @@ modified as wished.  For example, the provided value of 15 (representing
 Note: 
 This code was adapted from the MITx 6.00.2x Introduction to Computational Thinking 
 and Data Science course.  The basic structure originates from a lecture example, 
-and this was then modified to input a file, optimize a set of data with different 
+which was modified to input a file, optimize a set of data with different 
 parameters, and output results in a new way.
 
 """
 
 import csv
-
-filename = open('sb_prep.csv', 'r')
-file     = csv.DictReader(filename)
-
-name_list = []
-cal_list  = []
-caff_list = []
-fat_list  = []
-sug_list  = []
- 
-# Iterate over each .csv row, append values to lists
-# Cast nutritional values as floats, then integers
-for col in file:
-    name_list.append(col['prep_name'])
-    cal_list.append(int(float(col['calories_%dv'])))
-    caff_list.append(int(float(col['caffeine_%dv'])))
-    fat_list.append(int(float(col['fat_%dv'])))
-    sug_list.append(int(float(col['sugars_%dv'])))
- 
-# print('Name:', name_list)
-# print('Calories:', cal_list)
-# print('Caffeine:', caff_list)
-# print('Fat:', fat_list)
-# print('Sugars:', sug_list)
-
 
 # Class: Drink
 # Description: represents nutritional values of a drink item
@@ -148,10 +123,6 @@ def build_menu(name_list, cal_list, caff_list, fat_list, sug_list):
         menu.append(drink_obj)
     return menu
 
-drink_menu = build_menu(name_list, cal_list, caff_list, fat_list, sug_list)
-# for item in drink_menu:
-#     print(item)
-
 
 # Function: greedy 
 # Description: generates the maximized 'best' drinks one can take, based on available 
@@ -173,8 +144,8 @@ def greedy(drink_menu, max_cals, key_function):
     # For each sorted Drink object, going best to worst...
     for i in range(len(drink_menu_copy)):
         # Call get_cal method to get calories 
-        # If these calories, plus total calories are less than or equal to max_cal,
-        # (e.g. is there room to take item?), add to taken_items and add values to running totals
+        # If these calories, plus total calories, are less than or equal to max_cal,
+        # (e.g. is there room to take item?), add to taken_items, add values to running totals
         # If greater than max_cal value, go to next Drink obj
         if (total_cal + drink_menu_copy[i].get_cal()) <= max_cals:
             taken_items.append(drink_menu_copy[i])
@@ -219,4 +190,40 @@ def choose_greedy(drink_menu, max_cals):
     print('\nMaximum drinks allocated by sugars, for', str(max_cals)+'% DV calories:')
     greedy(drink_menu, max_cals, Drink.get_sug)
     
-choose_greedy(drink_menu, 15)
+#choose_greedy(drink_menu, 15)
+
+
+# Function: main 
+# Description: central execution point, bundles variables and function calls 
+# Parameters: none
+# Returns: None
+def main():
+    filename = open('sb_prep.csv', 'r')
+    file     = csv.DictReader(filename)
+    
+    name_list = []
+    cal_list  = []
+    caff_list = []
+    fat_list  = []
+    sug_list  = []
+     
+    # Iterate over each .csv row, append values to lists
+    # Cast nutritional values as floats, then integers
+    for col in file:
+        name_list.append(col['prep_name'])
+        cal_list.append(int(float(col['calories_%dv'])))
+        caff_list.append(int(float(col['caffeine_%dv'])))
+        fat_list.append(int(float(col['fat_%dv'])))
+        sug_list.append(int(float(col['sugars_%dv'])))
+     
+    # print('Name:', name_list)
+    # print('Calories:', cal_list)
+    # print('Caffeine:', caff_list)
+    # print('Fat:', fat_list)
+    # print('Sugars:', sug_list)
+    drink_menu = build_menu(name_list, cal_list, caff_list, fat_list, sug_list)
+    choose_greedy(drink_menu, 15)
+main()
+
+
+
