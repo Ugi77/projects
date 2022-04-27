@@ -10,8 +10,8 @@ obtain (with a given calorie constraint) is output, based upon which value is
 considered optimal: calories, caffeine, fats, or sugars.
 
 How to play:
-The "max_cal" parameter value of the "choose_greedy" function call can be 
-modified as wished.  For example, the provided value of 15 (representing 
+In the main function, the max_cal integer of the choose_greedy function call 
+can be modified as wished.  For example, the provided value of 15 (representing 
 15% DV of calories), outputs all drinks maximized by one's vice of choice 
 (calories, caffeine, fats, or sugars) that are up to 15% DV of calories.
 
