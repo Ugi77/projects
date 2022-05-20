@@ -20,7 +20,7 @@ To combine various Python coding techniques, I created a workflow that will scra
 
 ### Create your own work!
 
-**1) Pick a url (from a website that is safe to scrape) or select one of the provided options for the url variable**
+**1) Select one of the provided options for the url variable (located within the `main` function), or supply your own url (from a website that is safe to scrape)**
 ```python
 url = "http://books.toscrape.com"
 # "https://www.rithmschool.com/blog"
@@ -28,28 +28,9 @@ url = "http://books.toscrape.com"
 # "http://books.toscrape.com"
 ```
 
-**2) To view output of the 'clean' function, the following can be un-commented** 
-```python
-# print("Website text minus potential adjectives/verbs: ")
-# for item in others_list:
-#     print(item) 
-# print("Potential adjectives: ")
-# for item in adj_list:
-#     print(item)
-# print("Potential verbs: ")
-# for item in verb_list:
-#     print(item)
-# print("Longest word: ", longest_word)
-```
+**2) Run the program (originates via the `main` function)** 
 
-**3) To view output of the 'modify_words' function, the following may be un-commented**
-```python
-# for item in poem_depot:
-#     print(item) 
-```
-
-**4) To run the program, simply engage the `output_poem` function to view the poem in your console.** 
-
-A text file of the poem will be created unless `output_poem(False)` is run.  
+The poem will appear in your console.  
+A text file of the poem will be created unless, within the `main` function, the `output_poem(poem)` call is set to `output_poem(poem, False)`.  
 As word selection is randomized, re-running the program will create breathtaking new poems from the website text.
 
