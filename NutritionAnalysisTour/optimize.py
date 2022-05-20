@@ -10,20 +10,19 @@ obtain (with a given calorie constraint) is output, based upon which value is
 considered optimal: calories, caffeine, fats, or sugars.
 
 How to play:
-In the main function, the max_cal integer of the choose_greedy function call 
+In the 'main' function, the max_cals integer of the choose_greedy function call 
 can be modified as wished.  For example, the provided value of 15 (representing 
 15% DV of calories), outputs all drinks maximized by one's vice of choice 
 (calories, caffeine, fats, or sugars) that are up to 15% DV of calories.
 
 Note: 
-This code was adapted from the MITx 6.00.2x Introduction to Computational Thinking 
-and Data Science course.  The basic structure originates from a lecture example, 
-which was modified to input a file, optimize a set of data with different 
-parameters, and output results in a new way.
+This code was adapted from the MITx 6.00.2x Introduction to Computational 
+Thinking and Data Science course.  The basic structure originates from a 
+lecture example, which has been modified to input a file, optimize data 
+using different parameters, and output results in a new way.
 
 """
 
-import csv
 
 # Class: Drink
 # Description: represents nutritional values of a drink item
@@ -89,7 +88,7 @@ class Drink(object):
         return self.sug
     
     # Method: __str__
-    # Description: Defines how to cast the objects of class Drink into a string.  
+    # Description: defines how to cast the objects of class Drink into a string 
     # Parameters: none
     # Precondition: none
     # Postcondition: no change
@@ -97,12 +96,11 @@ class Drink(object):
     def __str__(self):
         return self.name
 
-# test = Drink("expresso", 3, 4, 5, 6)
-# result = test.get_sug()
-# print(test)
-# print(result)
 
 ## END OF CLASS DRINK ##
+
+
+import csv
 
 
 # Function: build_menu 
@@ -117,15 +115,15 @@ class Drink(object):
 def build_menu(name_list, cal_list, caff_list, fat_list, sug_list):
     menu = []
     for i in range(len(name_list)):
-        # Create a Drink object with a list element from name_list, cal_list, etc. at iterated index position
-        # Add each Drink object to the menu list
+        # Create a Drink object with each list item at iterated index position        
         drink_obj = Drink(name_list[i], cal_list[i], caff_list[i], fat_list[i], sug_list[i])
+        # Add each Drink object to the menu list
         menu.append(drink_obj)
     return menu
 
 
 # Function: greedy 
-# Description: generates the maximized 'best' drinks one can take, based on available 
+# Description: generates the maximized 'best' drinks, based on available 
 #              calories and preferred value (sugar, caffeine, etc.) 
 # Parameters: 
 #     drink_menu:   a list of Drink objects
@@ -138,15 +136,16 @@ def greedy(drink_menu, max_cals, key_function):
     # Specify key so sort is based on what to consider as the best feature
     # Then reverse the copied list to sort best to worst
     drink_menu_copy = sorted(drink_menu, key = key_function, reverse = True)
+    
     taken_items = []
     total_cal, total_caff, total_fat, total_sug = 0, 0, 0, 0
     
     # For each sorted Drink object, going best to worst...
     for i in range(len(drink_menu_copy)):
-        # Call get_cal method to get calories 
+        # Call get_cal method to obtain calorie value 
         # If these calories, plus total calories, are less than or equal to max_cal,
-        # (e.g. is there room to take item?), add to taken_items, add values to running totals
-        # If greater than max_cal value, go to next Drink obj
+        # add to taken_items, add values to running totals
+        # If greater than max_cal value, go on to next Drink obj
         if (total_cal + drink_menu_copy[i].get_cal()) <= max_cals:
             taken_items.append(drink_menu_copy[i])
             total_cal  += drink_menu_copy[i].get_cal()          
@@ -164,13 +163,11 @@ def greedy(drink_menu, max_cals, key_function):
     print('Fats:    ', total_fat)
     print('Sugars:  ', total_sug)
     print('*************')
-    
-# greedy(drink_menu, 10, Drink.get_caff)
 
 
 # Function: choose_greedy 
-# Description: prints itemized report of drinks one can take that are within the 
-#              calorie constraint, using calories, caffeine, fat, or sugar as best feature  
+# Description: prints itemized report of drinks available within the calorie
+#              constraint, using calories, caffeine, fat, or sugar as best feature  
 # Parameters: 
 #     drink_menu: a list of Drink objects
 #     max_cals: an integer >= 0, representing maximum available calories to take
@@ -189,8 +186,6 @@ def choose_greedy(drink_menu, max_cals):
 
     print('\nMaximum drinks allocated by sugars, for', str(max_cals)+'% DV calories:')
     greedy(drink_menu, max_cals, Drink.get_sug)
-    
-#choose_greedy(drink_menu, 15)
 
 
 # Function: main 
@@ -216,13 +211,10 @@ def main():
         fat_list.append(int(float(col['fat_%dv'])))
         sug_list.append(int(float(col['sugars_%dv'])))
      
-    # print('Name:', name_list)
-    # print('Calories:', cal_list)
-    # print('Caffeine:', caff_list)
-    # print('Fat:', fat_list)
-    # print('Sugars:', sug_list)
     drink_menu = build_menu(name_list, cal_list, caff_list, fat_list, sug_list)
     choose_greedy(drink_menu, 15)
+
+
 main()
 
 
