@@ -2,14 +2,14 @@
 
 """
 Author: Dima (Ugi77)
-Description: the following workflow scrapes a website, selects and organizes word text, 
+Description: the following workflow scrapes a website, selects and organizes words, 
 modifies text elements, and re-assembles these words into free-form poetry.
 """
 
 class StringMod:
     """
     Class: StringMod
-    Description: represents a StringMod object and functionality to process, store strings
+    Description: represents a StringMod object and functionality to process strings
     """
     def __init__(self, chars):
         """
@@ -111,14 +111,11 @@ class StringMod:
 
 ## END OF CLASS STRINGMOD ##
 
+
 import random
 import requests
 from bs4 import BeautifulSoup
 
-url = "http://books.toscrape.com"
-# "https://www.rithmschool.com/blog"
-# "http://quotes.toscrape.com"
-# "http://books.toscrape.com"
 
 def scrape(url):
     """
@@ -134,8 +131,6 @@ def scrape(url):
     text         = visible_text.split()
     return text
 
-text_list = scrape(url)
-
 
 def clean(text_list):
     """
@@ -143,11 +138,11 @@ def clean(text_list):
     Description: tidies text scraped from a website, identifies types of words
     Parameters:
       text_list: a list of strings
-    Returns: a tuple, containing 3 lists of StringMod objects:
-        potential adjectives (from all webpage words)
-        potential verbs (from all webpage words)
-        remaining webpage words (from all webpage words)
-        ...and a StringMod object of the longest word (from all webpage words)
+    Returns: a tuple, containing 3 lists, of StringMod objects from all webpage words:
+        -potential adjectives
+        -potential verbs
+        -remaining webpage words
+        ...and also a StringMod object of the longest word
     """
     word_list    = []
     adj_list     = []
@@ -180,26 +175,13 @@ def clean(text_list):
             else:
                 word_obj = StringMod(word)
                 remains_list.append(word_obj)
-        # sotre all remaining words
+        # store all remaining words
         else:
             word_obj = StringMod(word)
             remains_list.append(word_obj)
        
     longest_word = StringMod(longest_word)
     return adj_list, verb_list, remains_list, longest_word
-
-(adj_list, verb_list, remains_list, longest_word) = clean(text_list)
-
-# print("Website text minus potential adjectives/verbs: ")
-# for item in remains_list:
-#     print(item) 
-# print("Potential adjectives: ")
-# for item in adj_list:
-#     print(item)
-# print("Potential verbs: ")
-# for item in verb_list:
-#     print(item)
-# print("Longest word: ", longest_word)
 
 
 def modify_words(adj_list, verb_list, remains_list, longest_word):
@@ -239,12 +221,8 @@ def modify_words(adj_list, verb_list, remains_list, longest_word):
         counter += 1
     
     return poem_depot
-    
-poem_depot = modify_words(remains_list, adj_list, verb_list, longest_word)  
-# for item in poem_depot:
-#     print(item) 
 
-    
+
 def build_poem(word_objects, mod_words):
     """
     Function: build_poem
@@ -255,11 +233,11 @@ def build_poem(word_objects, mod_words):
     Returns: a list, of StringMod objects
     """
     poem = []
-    # set var to select random integer between 0 and remains_list length (minus 3)
+    # set var to select random integer between 0 and word_objects length (minus 3)
     # three is subtracted to avoid IndexError when slicing
-    word_range = random.randrange(0, len(remains_list) - 3)
-    # slice 3 words from remains_list
-    rando_words = remains_list[word_range:word_range + 3]
+    word_range = random.randrange(0, len(word_objects) - 3)
+    # slice 3 words from word_objects
+    rando_words = word_objects[word_range:word_range + 3]
     
     # add word slice to poem
     for word in rando_words:
@@ -274,8 +252,8 @@ def build_poem(word_objects, mod_words):
     poem.extend([mod_words[1], mod_words[4], mod_words[7]])
 
     # select new random 3-word slice
-    word_range = random.randrange(0, len(remains_list) - 3)
-    rando_words = remains_list[word_range:word_range + 3]
+    word_range = random.randrange(0, len(word_objects) - 3)
+    rando_words = word_objects[word_range:word_range + 3]
     # add this to the poem
     for word in rando_words:
         poem.append(word)
@@ -284,8 +262,6 @@ def build_poem(word_objects, mod_words):
     poem.extend([mod_words[9], mod_words[10], mod_words[11]])
             
     return poem
-
-poem = build_poem(remains_list, poem_depot)
 
 
 def save_string(filename, new_line):
@@ -302,11 +278,12 @@ def save_string(filename, new_line):
         file.write("\n")
 
 
-def output_poem(text_file = True):
+def output_poem(poem, text_file = True):
     """
     Function: output_poem
     Description: outputs poem in a formatted shape to console, and words to text file
     Parameters:
+      poem: a list, of StringMod objects  
       text_file: a Boolean, default (True) set to create and output text file
     Returns: None
     """
@@ -319,4 +296,29 @@ def output_poem(text_file = True):
                 save_string("poem.txt", res)
         print('\n')
         counter += 6
-output_poem()
+
+
+def main():
+    """
+    Function: main 
+    Description: central execution point, bundles variables and function calls 
+    Parameters: none
+    Returns: None
+    """ 
+    url = "http://books.toscrape.com"
+    # "https://www.rithmschool.com/blog"
+    # "http://quotes.toscrape.com"
+    # "http://books.toscrape.com"
+    
+    text_list = scrape(url)
+    
+    (adj_list, verb_list, remains_list, longest_word) = clean(text_list)
+    
+    poem_depot = modify_words(remains_list, adj_list, verb_list, longest_word)  
+    
+    poem = build_poem(remains_list, poem_depot)
+    
+    output_poem(poem)
+
+
+main()
