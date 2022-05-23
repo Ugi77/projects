@@ -14,4 +14,6 @@ File | Action | Language/tool | Status |
 | [optimize.py](https://github.com/Ugi77/projects/blob/main/NutritionAnalysisTour/optimize.py) | Optimization algorithm | Python  | Complete |
 | [prep_r_corr.ipynb](https://github.com/Ugi77/projects/blob/main/NutritionAnalysisTour/prep_r_corr.ipynb) | Data refinement | Python (Pandas)  | Complete |
 | [inferential_r.ipynb](https://github.com/Ugi77/projects/blob/main/NutritionAnalysisTour/inferential_r.ipynb) | Inferential statistics | R  | Complete |
-|[Tableau Vizzes](https://public.tableau.com/app/profile/ugi1182) | Data visualization | Tableau  | In progress |
+|[Tableau Vizzes](https://public.tableau.com/app/profile/ugi1182#!/?newProfile=&activeTab=0) | Data visualization | Tableau  | In progress |
+
+
