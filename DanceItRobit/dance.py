@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+# Author: Dima (Ugi77)
 
 import random
 
@@ -115,12 +115,6 @@ def build_keyboard():
         octave += 1
     return keyboard
 
-keyboard = build_keyboard()
-
-# This outputs a handy keyboard reference for composing
-for note in keyboard:
-    print(note)
-
 
 # Function: get_name_from_pos
 # Description: retrieves a Pitch object's name (note and octave)
@@ -207,22 +201,10 @@ class Motif(object):
                  # articulation gap
                 sleep(0.05)
 
-motif1 = Motif()
-motif1.build_motif([9, 7, 9, 4, 0, 4, -3], keyboard, [0.5, 0.5, 0.5, 0.5, 0.25, 0.75, 1], 3)
 
-# motif2 = Motif()
-# motif2.build_motif([16, 14, 16, 11, 7, 11, 4], keyboard, [0.5, 0.5, 0.5, 0.5, 0.25, 0.75, 1], 3)
+## END OF CLASS MOTIF ##
 
-# motif3 = Motif()
-# motif3.build_motif([9, 11, 12, 11, 12, 12, 9, 11, 9, 11, 11, 7, 9, 7, 9, 9, 11, 12], keyboard,
-#             [0.5, 0.5, 0.5, 0.25, 0.5, 0.5, 0.25, 0.5, 0.25, 0.5, 0.5, 0.25, 0.5, 0.25, 0.5, 0.5, 0.25, 1], 3)
-# motif4 = Motif()
-# motif4.build_motif([9, 11, 12, 11, 12, 12, 9, 11, 9, 11, 11, 7, 9, 7, 9, 9, 11, 12], keyboard,
-#             [0.5, 0.5, 0.5, 0.25, 0.5, 0.5, 0.25, 0.5, 0.25, 0.5, 0.5, 0.25, 0.5, 0.25, 0.5, 0.5, 0.25, 1], 3, 7)
-# motif5 = Motif()
-# motif5.build_motif([-3, -3], keyboard, [0.75, 1], 1)
-    
-    
+
 # Class: Dance
 # Description: represents a Dance object with musical motifs and dance moves
 class Dance(object):
@@ -304,6 +286,7 @@ class Dance(object):
                     motors.enable(False)
                 leds.ls(0b11111)
                 self.motif.play_motif()
+
         
 ## END OF CLASS DANCE ##
 
@@ -329,6 +312,34 @@ def composer(motifs, motif_order):
     for num in motif_order: 
         dance_list[num].dance_it()
 
-# composer([motif1, motif2, motif3, motif4, motif5], [0, 0, 2, 0, 0, 2, 1, 1, 3, 1, 1, 3, 4])
 
+# Function: main 
+# Description: central execution point, bundles variables and function calls 
+# Parameters: none
+# Returns: None
+def main():
+    keyboard = build_keyboard()
 
+    # This outputs a handy keyboard reference for composing
+    for note in keyboard:
+        print(note)
+        
+    motif1 = Motif()
+    motif1.build_motif([9, 7, 9, 4, 0, 4, -3], keyboard, [0.5, 0.5, 0.5, 0.5, 0.25, 0.75, 1], 3)
+    
+    motif2 = Motif()
+    motif2.build_motif([16, 14, 16, 11, 7, 11, 4], keyboard, [0.5, 0.5, 0.5, 0.5, 0.25, 0.75, 1], 3)
+    
+    motif3 = Motif()
+    motif3.build_motif([9, 11, 12, 11, 12, 12, 9, 11, 9, 11, 11, 7, 9, 7, 9, 9, 11, 12], keyboard,
+                [0.5, 0.5, 0.5, 0.25, 0.5, 0.5, 0.25, 0.5, 0.25, 0.5, 0.5, 0.25, 0.5, 0.25, 0.5, 0.5, 0.25, 1], 3)
+    motif4 = Motif()
+    motif4.build_motif([9, 11, 12, 11, 12, 12, 9, 11, 9, 11, 11, 7, 9, 7, 9, 9, 11, 12], keyboard,
+                [0.5, 0.5, 0.5, 0.25, 0.5, 0.5, 0.25, 0.5, 0.25, 0.5, 0.5, 0.25, 0.5, 0.25, 0.5, 0.5, 0.25, 1], 3, 7)
+    motif5 = Motif()
+    motif5.build_motif([-3, -3], keyboard, [0.75, 1], 1)
+    
+    composer([motif1, motif2, motif3, motif4, motif5], [0, 0, 2, 0, 0, 2, 1, 1, 3, 1, 1, 3, 4])
+    
+    
+main()
