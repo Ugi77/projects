@@ -52,7 +52,7 @@ class Pitch(object):
     # Parameters: none
     # Preconditions: none 
     # Postcondition: no change
-    # Returns: a string        
+    # Returns: an integer        
     def get_pos(self):
         return self.pos
     
@@ -88,36 +88,42 @@ class Pitch(object):
     def __str__(self):
         return self.name + ': Hz = ' + str(self.freq) + ', Position = ' + str(self.pos)
 
+
 ## END OF CLASS PITCH ##
 
 
 # Function: build_keyboard 
-# Description: assigns note names to their frequency (Hz)
-# Parameters: 
-#   scale: a list of strings, representing the note names of a scale
+# Description: assigns note names to their frequency (Hz), beginning at C1
+# Parameters: none
 # Returns: a list of Pitch objects
-def build_keyboard(scale):
+def build_keyboard():
+    note_list = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
     keyboard = []
     octave   = 1
-    x        = 4 # C1
+    x        = 4 # This represents C1, or integer to initiate proper steps below A4
     while octave <= 6:
         for i in range(len(note_list)):
+            # Calculate Hz (frequency), where (x - 49) is the number of notes away from A4
+            # Example: (x - 49) = 45, the # steps C1 is from A4 
+            # This is (C1 - A4) or using positions: (9 - -36) = 45
             hz_assmt = 440 * (2**((x - 49)/12))
             pitch_object = Pitch(note_list[i] + str(octave), hz_assmt)
             keyboard.append(pitch_object)
+            # Increment 'x' to go to next piano key
             x += 1
+        # Increment octave after each run through the note_list    
         octave += 1
-    return keyboard  
+    return keyboard
 
-note_list = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
-keyboard = build_keyboard(note_list)
-# keyboard[50].play_pitch()
-# print(keyboard[6])
+keyboard = build_keyboard()
+
+# This outputs a handy keyboard reference for composing
 for note in keyboard:
     print(note)
 
+
 # Function: get_name_from_pos
-# Description: retrieves a Pitch object's name 
+# Description: retrieves a Pitch object's name (note and octave)
 # Parameters: 
 #   keyboard: a list, of Pitch objects
 #   position: an integer, representing the Pitch object's keyboard position, where 0 = middle C
@@ -126,18 +132,7 @@ def get_name_from_pos(keyboard, position):
     for note in keyboard:
         if note.get_pos() == position:
             return note.get_name()
-
-# Function: get_pitch
-# Description: retrieves a Pitch object from the keyboard
-# Parameters: 
-#   position: an integer, representing the Pitch object's keyboard position, where 0 = middle C
-# Preconditions: build_keyboard has been called 
-# Postcondition: no change
-# Returns: a Pitch object       
-def get_pitch(position):
-    return keyboard[position + Pitch.next_pos]
-    
-
+ 
 
 # Class: Motif
 # Description: represents a collection of Pitch objects, with notes of n duration
@@ -170,7 +165,7 @@ class Motif(object):
         # transpose if step is a parameter in the call
         if step != 0:
             note_positions_copy = note_positions[:]
-            note_positions = list(map(lambda x: x+step, note_positions_copy))
+            note_positions = list(map(lambda x: x + step, note_positions_copy))
         
         # adjust durations based on tempo
         tempo_durations = list(map(lambda x: x/tempo, durations))       
@@ -215,19 +210,19 @@ class Motif(object):
 motif1 = Motif()
 motif1.build_motif([9, 7, 9, 4, 0, 4, -3], keyboard, [0.5, 0.5, 0.5, 0.5, 0.25, 0.75, 1], 3)
 
-motif2 = Motif()
-motif2.build_motif([16, 14, 16, 11, 7, 11, 4], keyboard, [0.5, 0.5, 0.5, 0.5, 0.25, 0.75, 1], 3)
+# motif2 = Motif()
+# motif2.build_motif([16, 14, 16, 11, 7, 11, 4], keyboard, [0.5, 0.5, 0.5, 0.5, 0.25, 0.75, 1], 3)
 
-motif3 = Motif()
-motif3.build_motif([9, 11, 12, 11, 12, 12, 9, 11, 9, 11, 11, 7, 9, 7, 9, 9, 11, 12], keyboard,
-            [0.5, 0.5, 0.5, 0.25, 0.5, 0.5, 0.25, 0.5, 0.25, 0.5, 0.5, 0.25, 0.5, 0.25, 0.5, 0.5, 0.25, 1], 3)
-motif4 = Motif()
-motif4.build_motif([9, 11, 12, 11, 12, 12, 9, 11, 9, 11, 11, 7, 9, 7, 9, 9, 11, 12], keyboard,
-            [0.5, 0.5, 0.5, 0.25, 0.5, 0.5, 0.25, 0.5, 0.25, 0.5, 0.5, 0.25, 0.5, 0.25, 0.5, 0.5, 0.25, 1], 3, 7)
-motif5 = Motif()
-motif5.build_motif([-3, -3], keyboard, [0.75, 1], 1)
+# motif3 = Motif()
+# motif3.build_motif([9, 11, 12, 11, 12, 12, 9, 11, 9, 11, 11, 7, 9, 7, 9, 9, 11, 12], keyboard,
+#             [0.5, 0.5, 0.5, 0.25, 0.5, 0.5, 0.25, 0.5, 0.25, 0.5, 0.5, 0.25, 0.5, 0.25, 0.5, 0.5, 0.25, 1], 3)
+# motif4 = Motif()
+# motif4.build_motif([9, 11, 12, 11, 12, 12, 9, 11, 9, 11, 11, 7, 9, 7, 9, 9, 11, 12], keyboard,
+#             [0.5, 0.5, 0.5, 0.25, 0.5, 0.5, 0.25, 0.5, 0.25, 0.5, 0.5, 0.25, 0.5, 0.25, 0.5, 0.5, 0.25, 1], 3, 7)
+# motif5 = Motif()
+# motif5.build_motif([-3, -3], keyboard, [0.75, 1], 1)
     
-
+    
 # Class: Dance
 # Description: represents a Dance object with musical motifs and dance moves
 class Dance(object):
@@ -334,6 +329,6 @@ def composer(motifs, motif_order):
     for num in motif_order: 
         dance_list[num].dance_it()
 
-composer([motif1, motif2, motif3, motif4, motif5], [0, 0, 2, 0, 0, 2, 1, 1, 3, 1, 1, 3, 4])
+# composer([motif1, motif2, motif3, motif4, motif5], [0, 0, 2, 0, 0, 2, 1, 1, 3, 1, 1, 3, 4])
 
 
